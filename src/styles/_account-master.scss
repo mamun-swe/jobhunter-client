@@ -1,0 +1,135 @@
+.account-master {
+    .profile-info-container {
+        width: 100%;
+
+        @media (min-width: 992px) {
+            min-width: 300px !important;
+            max-width: 300px !important;
+        }
+    }
+}
+
+// profile-card-container
+.profile-card-container {
+    .card {
+        overflow: hidden;
+        border-radius: 6px;
+
+        .card-header {
+
+            // Image container
+            .image-container {
+                position: relative;
+
+                .image {
+                    margin: auto;
+                    width: 100px;
+                    height: 100px;
+                    overflow: hidden;
+                    border-radius: 50%;
+                    border: 1px solid #dfdfdf;
+
+                    img {
+                        min-width: 100px;
+                        min-height: 100px;
+                    }
+                }
+            }
+
+            // Content container
+            .content-container {
+                padding-top: 30px;
+                text-align: center;
+
+                h6 {
+                    font-size: 18px;
+                    margin-bottom: 5px;
+                    text-transform: capitalize;
+                }
+
+                p {
+                    font-size: 14px;
+                    margin-bottom: 2px;
+                }
+            }
+        }
+
+        .card-body {
+            .btn {
+                color: $theme-color;
+                margin: 0;
+                font-size: 14px;
+                border-radius: 0;
+                text-align: left;
+                padding: 20px 15px;
+                transition: 0.3s all;
+                background: none;
+
+                i {
+                    margin-right: 10px;
+                }
+
+                &:hover {
+                    color: #fff;
+                }
+            }
+
+            .isActive {
+                color: #fff;
+                background: $theme-color;
+            }
+        }
+    }
+}
+
+// dashboard-container
+.dashboard-container {
+    .item-container {
+        width: 50%;
+        float: left;
+        padding: 5px;
+
+        .item-body {
+            width: 100%;
+            padding: 10px;
+            min-height: 120px;
+            border-radius: 6px;
+            border: 1px solid #dfdfdf;
+
+            i {
+                color: $theme-color;
+            }
+
+            p {
+                font-size: 15px;
+                color: $theme-color;
+                margin-bottom: 15px;
+            }
+
+            h5 {
+                margin-bottom: 0;
+                font-weight: 600;
+            }
+
+            @media (min-width: 576px) {
+                padding: 20px;
+            }
+        }
+    }
+}
+
+// apply-list
+.apply-list {
+    .table {
+        tr {
+            td {
+                border-top: 1px solid #dfdfdf;
+
+                p {
+                    font-size: 13px;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
