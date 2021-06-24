@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
+import jwtDecode from 'jwt-decode'
 
 import Header from '../../components/header/Index'
 import Footer from '../../components/footer/Index'
+import Requests from '../../utils/Requests/Index'
 
 const Index = () => {
     const history = useHistory()
@@ -14,15 +16,19 @@ const Index = () => {
     const onSubmit = async data => {
         try {
             setLoading(true)
-            console.log(data)
-
-            setTimeout(() => {
-                setLoading(false)
-                // history.push('/seeker/')
-                history.push('/company/')
-            }, 1000)
+            const response = await Requests.Auth.Login(data)
+            if (response) {
+                const token = response.token
+                if (token) {
+                    localStorage.setItem("token", token)
+                    const decodeToken = jwtDecode(token)
+                    if (decodeToken && decodeToken.role === "company") history.push("/company")
+                    if (decodeToken && decodeToken.role === "seeker") history.push("/seeker")
+                }
+            }
+            setLoading(false)
         } catch (error) {
-            if (error) console.log(error)
+            if (error) setLoading(false)
         }
     }
 

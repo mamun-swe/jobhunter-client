@@ -3,7 +3,7 @@ import JoditEditor from "jodit-react"
 
 const Index = (props) => {
     const editor = useRef(null)
-    const [content, setContent] = useState('')
+    const [content] = useState('')
 
     const config = {
         readonly: false
@@ -15,8 +15,7 @@ const Index = (props) => {
             value={content}
             config={config}
             tabIndex={1}
-            onBlur={newContent => setContent(newContent)}
-            onChange={newContent => props.value(newContent)}
+            onBlur={newContent => props.value(newContent)}
         />
     );
 }

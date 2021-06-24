@@ -1,31 +1,42 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
+
+import { districts } from '../../../../utils/districts'
 import RichText from '../../../../components/richText/Index'
+import SingleSelect2 from '../../../../components/select/Single2'
+import Requests from '../../../../utils/Requests/Index'
 
 const Create = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
     const [description, setDescription] = useState({ value: null, error: null })
+    const [area, setArea] = useState({ value: null, error: null })
     const [isLoading, setLoading] = useState(false)
+    const [header] = useState({
+        headers: { Authorization: "Bearer " + localStorage.getItem('token') }
+    })
 
     // Submit data
     const onSubmit = async (data) => {
         try {
+            if (!area.value) return setArea({ ...area, error: 'Area is required.' })
             if (!description.value) return setDescription({ ...description, error: "Description is required." })
 
             setLoading(true)
             const formData = {
                 ...data,
+                area: area.value,
                 description: description.value
             }
-
-            console.log(formData)
-
-            setTimeout(() => {
-                setLoading(false)
+            
+            const response = await Requests.Company.CreateJob(formData, header)
+            if (response.status === 201) {
+                toast.success(response.data.message)
                 reset()
-            }, 1000);
+            }
+            setLoading(false)
         } catch (error) {
-            if (error) console.log(error)
+            if (error) setLoading(false)
         }
     }
 
@@ -58,6 +69,23 @@ const Create = () => {
                                         />
                                     </div>
                                 </div>
+
+                                {/* Area */}
+                                <div className="col-12">
+                                    <div className="form-group">
+                                        {area.error ?
+                                            <label className="text-danger">{area.error}</label>
+                                            : <label>Job Area</label>}
+
+                                        <SingleSelect2
+                                            error={area.error}
+                                            placeholder={'area'}
+                                            options={districts}
+                                            value={(event) => setArea({ value: event.value, error: null })}
+                                        />
+                                    </div>
+                                </div>
+
 
                                 {/* Location */}
                                 <div className="col-12">
@@ -97,15 +125,15 @@ const Create = () => {
                                 {/* Salary start from */}
                                 <div className="col-12 col-lg-6">
                                     <div className="form-group mb-4">
-                                        {errors.salaryStart && errors.salaryStart.message ?
-                                            <label className="text-danger">{errors.salaryStart && errors.salaryStart.message}</label>
+                                        {errors.startSalary && errors.startSalary.message ?
+                                            <label className="text-danger">{errors.startSalary && errors.startSalary.message}</label>
                                             : <label>Salary start from</label>}
 
                                         <input
                                             type="number"
-                                            className={errors.salaryStart ? "form-control shadow-none error" : "form-control shadow-none"}
+                                            className={errors.startSalary ? "form-control shadow-none error" : "form-control shadow-none"}
                                             placeholder="Enter salary start form"
-                                            {...register("salaryStart", { required: "Salary start from is required" })}
+                                            {...register("startSalary", { required: "Salary start from is required" })}
                                         />
                                     </div>
                                 </div>
@@ -113,15 +141,15 @@ const Create = () => {
                                 {/* Salary end to */}
                                 <div className="col-12 col-lg-6">
                                     <div className="form-group mb-4">
-                                        {errors.salaryEnd && errors.salaryEnd.message ?
-                                            <label className="text-danger">{errors.salaryEnd && errors.salaryEnd.message}</label>
+                                        {errors.endSalary && errors.endSalary.message ?
+                                            <label className="text-danger">{errors.endSalary && errors.endSalary.message}</label>
                                             : <label>Salary end to</label>}
 
                                         <input
                                             type="number"
-                                            className={errors.salaryEnd ? "form-control shadow-none error" : "form-control shadow-none"}
+                                            className={errors.endSalary ? "form-control shadow-none error" : "form-control shadow-none"}
                                             placeholder="Enter salary end to"
-                                            {...register("salaryEnd", { required: "Salary end to is required" })}
+                                            {...register("endSalary", { required: "Salary end to is required" })}
                                         />
                                     </div>
                                 </div>
@@ -139,8 +167,8 @@ const Create = () => {
                                                 required: "Salary type is required"
                                             })}
                                         >
-                                            <option value="Yearly">Yearly</option>
-                                            <option value="Monthly">Monthly</option>
+                                            <option value="yearly">Yearly</option>
+                                            <option value="monthly">Monthly</option>
                                         </select>
                                     </div>
                                 </div>
@@ -148,18 +176,18 @@ const Create = () => {
                                 {/* Job type */}
                                 <div className="col-12 col-lg-6">
                                     <div className="form-group">
-                                        {errors.type && errors.type.message ? (
-                                            <label className="text-danger">{errors.type && errors.type.message}</label>
+                                        {errors.jobType && errors.jobType.message ? (
+                                            <label className="text-danger">{errors.jobType && errors.jobType.message}</label>
                                         ) : <label>Job type</label>}
 
                                         <select
                                             className="form-control"
-                                            {...register("type", {
+                                            {...register("jobType", {
                                                 required: "Type is required"
                                             })}
                                         >
-                                            <option value="Full time">Full time</option>
-                                            <option value="Part-time">Part-time</option>
+                                            <option value="full time">Full time</option>
+                                            <option value="part-time">Part-time</option>
                                         </select>
                                     </div>
                                 </div>

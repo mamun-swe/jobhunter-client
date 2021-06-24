@@ -32,7 +32,7 @@ const Index = () => {
                                                 here, your demo address.</p>
                                         </li>
                                         <li><Link to="/">Phone : +8880 44338899</Link></li>
-                                        <li><Link to="/">Email : info@colorlib.com</Link></li>
+                                        <li><Link to="/">Email : info@gmail.com</Link></li>
                                     </ul>
                                 </div>
 

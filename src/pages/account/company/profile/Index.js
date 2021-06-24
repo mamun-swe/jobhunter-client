@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import Icon from 'react-icons-kit'
 import {
@@ -7,30 +7,42 @@ import {
     alertCircle,
     dollarSign
 } from 'react-icons-kit/feather'
+import { toast } from 'react-toastify'
 import Preloader from '../../../../components/preloader/Index'
+import Requests from '../../../../utils/Requests/Index'
 
 const Index = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const [isLoading, setLoading] = useState(true)
     const [isSubmit, setSubmit] = useState(false)
+    const [company, setCompany] = useState(null)
+    const [header] = useState({
+        headers: { Authorization: "Bearer " + localStorage.getItem('token') }
+    })
+
+    // Fetch data
+    const fetchData = useCallback(async () => {
+        const response = await Requests.Company.Profile(header)
+        if (response) setCompany(response.company)
+        setLoading(false)
+    }, [header])
 
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 1000)
-    }, [])
+        fetchData()
+    }, [header, fetchData])
+
 
     // Submit form
     const onSubmit = async data => {
         try {
             setSubmit(true)
-            console.log(data)
-
-            setTimeout(() => {
+            const response = await Requests.Company.ProfileUpdate(data, header)
+            if (response.status === 201) {
+                toast.success(response.data.message)
                 setSubmit(false)
-            }, 1000)
+            }
         } catch (error) {
-            if (error) console.log(error)
+            if (error) setSubmit(false)
         }
     }
 
@@ -93,6 +105,7 @@ const Index = () => {
                                         type="text"
                                         className="form-control"
                                         placeholder="Company name"
+                                        defaultValue={company ? company.name : null}
                                         {...register("name", {
                                             required: "Company name is required"
                                         })}
@@ -111,13 +124,8 @@ const Index = () => {
                                         type="text"
                                         className="form-control"
                                         placeholder="Enter e-mail"
-                                        {...register("email", {
-                                            required: "Email is required",
-                                            pattern: {
-                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                                message: "Invalid email address"
-                                            }
-                                        })}
+                                        disabled
+                                        defaultValue={company ? company.email : null}
                                     />
                                 </div>
                             </div>
@@ -134,6 +142,7 @@ const Index = () => {
                                         type="text"
                                         className="form-control"
                                         placeholder="Enter website address"
+                                        defaultValue={company ? company.website : null}
                                         {...register("website", { required: "Website address is required" })}
                                     />
                                 </div>
@@ -150,6 +159,7 @@ const Index = () => {
                                         rows={6}
                                         className="form-control"
                                         placeholder="Enter company description"
+                                        defaultValue={company ? company.description : null}
                                         {...register("description", { required: "Company description is required" })}
                                     />
                                 </div>

@@ -1,8 +1,12 @@
-export const isLoggedin = (requestedRole) => {
-    const storedRole = localStorage.getItem('role')
+import jwtDecode from 'jwt-decode'
 
-    if (storedRole && storedRole === requestedRole) {
-        return true
+export const isLoggedin = (requestedRole) => {
+    const token = localStorage.getItem("token")
+    if (token) {
+        const decodeToken = jwtDecode(token)
+        if (decodeToken && decodeToken.role === requestedRole) {
+            return true
+        }
     }
     return false
 };

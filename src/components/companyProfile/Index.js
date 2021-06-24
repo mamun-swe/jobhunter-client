@@ -7,6 +7,11 @@ import { Images } from "../../utils/Images"
 const Index = () => {
     const history = useHistory()
 
+    const doLogout = () => {
+        localStorage.clear()
+        history.push("/")
+    }
+
     return (
         <div className="profile-card-container">
             <div className="card border-0 shadow-sm">
@@ -75,7 +80,7 @@ const Index = () => {
                     <button
                         type="button"
                         className="btn shadow-none btn-block"
-                        onClick={() => history.push('/')}
+                        onClick={doLogout}
                     >
                         <Icon icon={logOut} size={18} />Logout
                     </button>

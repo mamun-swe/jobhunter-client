@@ -1,18 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 
 import JobList from '../../../../components/jobs/Index'
 import Preloader from '../../../../components/preloader/Index'
 import Pagination from '../../../../components/pagination/Index'
+import Requests from '../../../../utils/Requests/Index'
 
 const Index = () => {
-    const [jobs] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+    const [jobs, setJobs] = useState([])
+    const [pagination, setPagination] = useState(null)
     const [isLoading, setLoading] = useState(true)
+    const [header] = useState({
+        headers: { Authorization: "Bearer " + localStorage.getItem('token') }
+    })
+
+    // Fetch data
+    const fetchData = useCallback(async () => {
+        try {
+            const response = await Requests.Company.JobIndex(header)
+            if (response) {
+                setJobs(response.data.jobs)
+                setPagination(response.data.pagination)
+            }
+            setLoading(false)
+        } catch (error) {
+            if (error) setLoading(false)
+        }
+    }, [header])
 
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false)
-        }, 1000)
-    }, [])
+        fetchData()
+    }, [header, fetchData])
+
 
     if (isLoading) return <Preloader />
 
@@ -24,7 +42,7 @@ const Index = () => {
                 </div>
                 <div className="card-body">
                     <JobList items={jobs} />
-                    <Pagination />
+                    <Pagination paginate={pagination} />
                 </div>
             </div>
         </div>

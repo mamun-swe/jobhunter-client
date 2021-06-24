@@ -7,10 +7,14 @@ import {
     alertCircle,
     dollarSign
 } from 'react-icons-kit/feather'
+import { districts } from '../../../../utils/districts'
+import SingleSelect2 from '../../../../components/select/Single2'
 import Preloader from '../../../../components/preloader/Index'
 
 const Index = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const [area, setArea] = useState({ value: null, error: null })
+    const [category, setCategory] = useState({ value: null, error: null })
     const [isLoading, setLoading] = useState(true)
     const [isSubmit, setSubmit] = useState(false)
 
@@ -23,8 +27,17 @@ const Index = () => {
     // Submit form
     const onSubmit = async data => {
         try {
+            if (!category.value) return setCategory({ ...category, error: 'Category is required.' })
+            if (!area.value) return setArea({ ...area, error: 'Area is required.' })
+
             setSubmit(true)
-            console.log(data)
+            const formData = {
+                ...data,
+                category: category.value,
+                area: area.value
+            }
+
+            console.log(formData)
 
             setTimeout(() => {
                 setSubmit(false)
@@ -142,19 +155,35 @@ const Index = () => {
                             {/* Category */}
                             <div className="col-12">
                                 <div className="form-group">
-                                    {errors.category && errors.category.message ? (
-                                        <label className="text-danger">{errors.category && errors.category.message}</label>
-                                    ) : <label>Job Category</label>}
+                                    {category.error ?
+                                        <label className="text-danger">{category.error}</label>
+                                        : <label>Job Category</label>}
 
-                                    <select
-                                        className="form-control"
-                                        {...register("category", { required: "Category is required" })}
-                                    >
-                                        <option value="job seeker">Job Seeker</option>
-                                        <option value="job post">Job Post</option>
-                                    </select>
+                                    <SingleSelect2
+                                        error={category.error}
+                                        placeholder={'category'}
+                                        options={districts}
+                                        value={(event) => setCategory({ value: event.value, error: null })}
+                                    />
                                 </div>
                             </div>
+
+                            {/* Area */}
+                            <div className="col-12">
+                                <div className="form-group">
+                                    {area.error ?
+                                        <label className="text-danger">{area.error}</label>
+                                        : <label>Job Area</label>}
+
+                                    <SingleSelect2
+                                        error={area.error}
+                                        placeholder={'area'}
+                                        options={districts}
+                                        value={(event) => setArea({ value: event.value, error: null })}
+                                    />
+                                </div>
+                            </div>
+
 
                             <div className="col-12">
                                 <div className="form-group text-right mt-3">

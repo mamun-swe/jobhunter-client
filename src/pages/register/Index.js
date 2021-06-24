@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import Header from '../../components/header/Index'
 import Footer from '../../components/footer/Index'
+import Requests from '../../utils/Requests/Index'
 
+toast.configure({ autoClose: 2000 })
 const Index = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const [isLoading, setLoading] = useState(false)
@@ -12,13 +16,10 @@ const Index = () => {
     const onSubmit = async data => {
         try {
             setLoading(true)
-            console.log(data)
-
-            setTimeout(() => {
-                setLoading(false)
-            }, 1000)
+            const response = await Requests.Auth.Register(data)
+            if (response) toast.success((response.message))
         } catch (error) {
-            if (error) console.log(error)
+            if (error) setLoading(false)
         }
     }
 
@@ -80,13 +81,13 @@ const Index = () => {
 
                                         {/* Created for */}
                                         <div className="form-group">
-                                            {errors.createdFor && errors.createdFor.message ? (
-                                                <label className="text-danger">{errors.createdFor && errors.createdFor.message}</label>
+                                            {errors.role && errors.role.message ? (
+                                                <label className="text-danger">{errors.role && errors.role.message}</label>
                                             ) : <label>Account created for</label>}
 
                                             <select
                                                 className="form-control"
-                                                {...register("createdFor", {
+                                                {...register("role", {
                                                     required: "Option is required"
                                                 })}
                                             >
