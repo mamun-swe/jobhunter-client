@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
-
+import { districts } from '../../utils/districts'
 import SingleSelect from '../../components/select/Single'
 
 const Index = () => {
     const history = useHistory()
-    const { register, handleSubmit } = useForm()
+    const { handleSubmit } = useForm()
+    const [location, setLocation] = useState({ value: null, error: null })
     const [category, setCategory] = useState({
         value: null,
         error: false,
@@ -19,21 +20,15 @@ const Index = () => {
     })
 
     // Submit form
-    const onSubmit = data => {
+    const onSubmit = () => {
         if (!category.value) return setCategory({ ...category, error: true })
-        history.push(`/search-results?title=${data.title.replace(/ /g, "+")}&country=${category.value.replace(/ /g, "+")}`)
+        if (!location.value) return setLocation({ ...location, error: true })
+        history.push(`/home/search-results?category=${category.value.replace(/ /g, "+")}&location=${category.value.replace(/ /g, "+")}`)
     }
 
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)} className="search-box">
-                <div className="input-form">
-                    <input
-                        type="text"
-                        placeholder="Job Tittle or keyword"
-                        {...register("title", { required: true })}
-                    />
-                </div>
                 <div className="select-form">
                     <div className="select-itms">
                         <SingleSelect
@@ -44,11 +39,21 @@ const Index = () => {
                         />
                     </div>
                 </div>
+                <div className="select-form">
+                    <div className="select-itms">
+                        <SingleSelect
+                            error={location.error}
+                            placeholder={'location'}
+                            options={districts}
+                            value={(event) => setLocation({ ...location, value: event.value, error: false })}
+                        />
+                    </div>
+                </div>
                 <div className="search-form mt-4 mt-md-0">
                     <button
                         type="submit"
                         className="btn shadow-none btn-block px-0"
-                        style={{ height: 70 }}
+                        style={{ height: 70, zIndex: 0 }}
                     >Find Job</button>
                 </div>
             </form>

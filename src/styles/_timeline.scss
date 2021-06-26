@@ -1,0 +1,93 @@
+.single-job-card {
+    border-radius: 6px;
+    overflow: hidden;
+
+    .card-header {
+        background: #fff;
+        border: 0;
+
+        .name-circle {
+            background: #fff;
+            width: 45px;
+            height: 45px;
+
+            h5 {
+                font-weight: 700;
+                color: $theme-color2;
+            }
+        }
+
+        h6 {
+            font-size: 20px;
+            text-transform: capitalize;
+            margin-bottom: 0;
+            margin-top: 0px;
+            font-weight: 700;
+            transition: 0.3s all;
+
+            &:hover {
+                color: $theme-color3;
+            }
+        }
+
+        p {
+            margin: 0;
+            font-size: 13px;
+            text-transform: capitalize;
+        }
+    }
+
+    .card-body{
+        p{
+            font-size: 14px;
+        }
+    }
+
+    .card-footer {
+        background: #fff;
+
+        .form-control {
+            font-size: 12px;
+            border-radius: 25px;
+            padding: 20px 15px;
+            background: #dfdfdf;
+
+            &:focus {
+                border: 1px solid #dfdfdf;
+            }
+        }
+
+        .btn {
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 20px 25px;
+        }
+
+        .comments-section {
+            .name-circle {
+                background: #fff;
+                width: 40px;
+                height: 40px;
+
+                h5 {
+                    font-weight: 700;
+                    color: $theme-color2;
+                }
+            }
+
+            h6 {
+                font-size: 16px;
+                text-transform: capitalize;
+                margin-bottom: 0;
+                margin-top: 10px;
+                font-weight: 700;
+                transition: 0.3s all;
+            }
+
+            p {
+                font-size: 12px;
+            }
+        }
+    }
+}

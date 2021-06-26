@@ -7,6 +7,11 @@ import { Images } from "../../utils/Images"
 const Index = () => {
     const history = useHistory()
 
+    const doLogout = () => {
+        localStorage.clear()
+        history.push("/")
+    }
+
     return (
         <div className="profile-card-container">
             <div className="card border-0 shadow-sm">
@@ -29,7 +34,7 @@ const Index = () => {
                 <div className="card-body px-0 pt-0">
                     <NavLink
                         exact
-                        to="/"
+                        to="/home"
                         activeClassName="isActive"
                         type="button"
                         className="btn shadow-none btn-block"
@@ -38,7 +43,7 @@ const Index = () => {
                     </NavLink>
                     <NavLink
                         exact
-                        to="/seeker/"
+                        to="/home/seeker/"
                         activeClassName="isActive"
                         type="button"
                         className="btn shadow-none btn-block"
@@ -47,7 +52,7 @@ const Index = () => {
                     </NavLink>
                     <NavLink
                         exact
-                        to="/seeker/apply-list"
+                        to="/home/seeker/apply-list"
                         activeClassName="isActive"
                         type="button"
                         className="btn shadow-none btn-block"
@@ -56,7 +61,7 @@ const Index = () => {
                     </NavLink>
                     <NavLink
                         exact
-                        to="/seeker/recent-jobs"
+                        to="/home/seeker/recent-jobs"
                         activeClassName="isActive"
                         type="button"
                         className="btn shadow-none btn-block"
@@ -65,7 +70,7 @@ const Index = () => {
                     </NavLink>
                     <NavLink
                         exact
-                        to="/seeker/matched-jobs"
+                        to="/home/seeker/matched-jobs"
                         activeClassName="isActive"
                         type="button"
                         className="btn shadow-none btn-block"
@@ -75,7 +80,7 @@ const Index = () => {
                     <NavLink
                         type="button"
                         exact
-                        to="/seeker/change-password"
+                        to="/home/seeker/change-password"
                         activeClassName="isActive"
                         className="btn shadow-none btn-block"
                     >
@@ -84,7 +89,7 @@ const Index = () => {
                     <button
                         type="button"
                         className="btn shadow-none btn-block"
-                        onClick={() => history.push('/')}
+                        onClick={doLogout}
                     >
                         <Icon icon={logOut} size={18} />Logout
                     </button>

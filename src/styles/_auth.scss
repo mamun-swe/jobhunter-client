@@ -11,6 +11,12 @@
             }
         }
 
+        .card-body{
+            a{
+                color: $theme-color;
+            }
+        }
+
         @media(min-width: 576px) {
             margin-top: 50px;
             margin-bottom: 50px;

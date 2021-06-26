@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
-import Header from '../../components/header/Index'
-import Footer from '../../components/footer/Index'
 import Requests from '../../utils/Requests/Index'
 
 toast.configure({ autoClose: 2000 })
@@ -25,7 +23,6 @@ const Index = () => {
 
     return (
         <div>
-            <Header />
             <main>
                 <div className="container auth-container py-5">
                     <div className="row">
@@ -97,7 +94,7 @@ const Index = () => {
                                         </div>
 
                                         {/* Password */}
-                                        <div className="form-group">
+                                        <div className="form-group mb-0">
                                             {errors.password && errors.password.message ? (
                                                 <label className="text-danger">{errors.password && errors.password.message}</label>
                                             ) : <label>Password</label>}
@@ -116,6 +113,10 @@ const Index = () => {
                                             />
                                         </div>
 
+                                        <div className="text-right mb-4">
+                                            <p>Already have an account ? <Link to="/">Login</Link></p>
+                                        </div>
+
 
                                         <div className="form-group text-right mt-3">
                                             <button
@@ -131,7 +132,6 @@ const Index = () => {
                     </div>
                 </div>
             </main>
-            <Footer />
         </div>
     )
 }

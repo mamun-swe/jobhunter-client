@@ -23,12 +23,12 @@ const Master = () => {
                                 </div>
                                 <div className="data-container flex-fill pl-lg-3">
                                     <Switch>
-                                        <Route exact path="/company/" component={ProfileIndex} />
-                                        <Route exact path="/company/applicants" component={ApplicantIndex} />
-                                        <Route exact path="/company/job/:id/applicants" component={ApplicantShow} />
-                                        <Route exact path="/company/opened-jobs" component={JobIndex} />
-                                        <Route exact path="/company/new-job" component={JobCreate} />
-                                        <Route exact path="/company/change-password" component={ChangePassword} />
+                                        <Route exact path="/home/company/" component={ProfileIndex} />
+                                        <Route exact path="/home/company/applicants" component={ApplicantIndex} />
+                                        <Route exact path="/home/company/job/:id/applicants" component={ApplicantShow} />
+                                        <Route exact path="/home/company/opened-jobs" component={JobIndex} />
+                                        <Route exact path="/home/company/new-job" component={JobCreate} />
+                                        <Route exact path="/home/company/change-password" component={ChangePassword} />
                                     </Switch>
                                 </div>
                             </div>

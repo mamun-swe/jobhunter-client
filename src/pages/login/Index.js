@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useHistory } from 'react-router-dom'
-import jwtDecode from 'jwt-decode'
-
-import Header from '../../components/header/Index'
-import Footer from '../../components/footer/Index'
+import { Link, useHistory } from 'react-router-dom'
 import Requests from '../../utils/Requests/Index'
 
 const Index = () => {
@@ -21,9 +17,7 @@ const Index = () => {
                 const token = response.token
                 if (token) {
                     localStorage.setItem("token", token)
-                    const decodeToken = jwtDecode(token)
-                    if (decodeToken && decodeToken.role === "company") history.push("/company")
-                    if (decodeToken && decodeToken.role === "seeker") history.push("/seeker")
+                    history.push("/home")
                 }
             }
             setLoading(false)
@@ -34,7 +28,6 @@ const Index = () => {
 
     return (
         <div>
-            <Header />
             <main>
                 <div className="container auth-container py-5">
                     <div className="row">
@@ -71,7 +64,7 @@ const Index = () => {
                                         </div>
 
                                         {/* Password */}
-                                        <div className="form-group">
+                                        <div className="form-group mb-0">
                                             {errors.password && errors.password.message ? (
                                                 <label className="text-danger">{errors.password && errors.password.message}</label>
                                             ) : <label>Password</label>}
@@ -90,6 +83,10 @@ const Index = () => {
                                             />
                                         </div>
 
+                                        <div className="text-right mb-4">
+                                            <p>Don't have account ? <Link to="/register">Register</Link></p>
+                                        </div>
+
 
                                         <div className="form-group text-right mt-3">
                                             <button
@@ -105,7 +102,6 @@ const Index = () => {
                     </div>
                 </div>
             </main>
-            <Footer />
         </div>
     )
 }

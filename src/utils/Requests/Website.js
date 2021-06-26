@@ -5,10 +5,10 @@ import { errorHandeller } from './Error'
 import 'react-toastify/dist/ReactToastify.css'
 toast.configure({ autoClose: 2000 })
 
-// Login
-const Login = async (data) => {
+// Index
+const Jobs = async () => {
     try {
-        const response = await Axios.post(`${api}auth/login`, data)
+        const response = await Axios.get(`${api}website/jobs`)
         if (response.status === 200) {
             return response.data
         }
@@ -17,11 +17,11 @@ const Login = async (data) => {
     }
 }
 
-// Register
-const Register = async (data) => {
+// Index
+const ShowJob = async (id) => {
     try {
-        const response = await Axios.post(`${api}auth/register`, data)
-        if (response.status === 201) {
+        const response = await Axios.get(`${api}website/jobs/${id}`)
+        if (response.status === 200) {
             return response.data
         }
     } catch (error) {
@@ -29,9 +29,9 @@ const Register = async (data) => {
     }
 }
 
-const Auth = {
-    Login,
-    Register
+const Website = {
+    Jobs,
+    ShowJob
 }
 
-export default Auth
+export default Website

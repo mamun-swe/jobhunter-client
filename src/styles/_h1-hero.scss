@@ -127,7 +127,7 @@ form.search-box {
     justify-content: space-between;
 
     .input-form {
-        width: 45%;
+        width: 30%;
         position: relative;
 
         @media #{$xs} {
@@ -186,56 +186,18 @@ form.search-box {
     }
 
     .select-form {
-        width: 34%;
+        width: 40%;
 
         @media #{$xs} {
             width: 100%;
         }
 
-        .nice-select {
-            width: 100%;
-            height: 70px;
-            background: #fff;
-            border-radius: 0px;
-            padding: 11px 19px 11px 10px;
-            color: #616875;
-            line-height: 54px;
-            border: 0;
-
-            @media #{$xs} {
-                margin-bottom: 20px;
-                padding-left: 25px;
-            }
-
-            @media #{$sm} {
-                margin-bottom: 20px;
-                padding-left: 25px;
-            }
-
-            .list {
-                width: 100%;
-            }
-
-            &.open .list {
-                width: 100%;
-                border-radius: 0;
-                border: 0;
-            }
-
-            &::after {
-                border-bottom: 1px solid #a9b6cd;
-                border-right: 1px solid #a9b6cd;
-                height: 12px;
-                width: 12px;
-                margin-top: -4px;
-                right: 29px;
-            }
-        }
+        
 
     }
 
     .search-form {
-        width: 21%;
+        width: 20%;
 
         @media #{$xs} {
             width: 100%;

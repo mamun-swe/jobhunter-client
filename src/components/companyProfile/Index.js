@@ -34,7 +34,7 @@ const Index = () => {
                 <div className="card-body px-0 pt-0">
                     <NavLink
                         exact
-                        to="/company/"
+                        to="/home/company/"
                         activeClassName="isActive"
                         type="button"
                         className="btn shadow-none btn-block"
@@ -43,7 +43,7 @@ const Index = () => {
                     </NavLink>
                     <NavLink
                         exact
-                        to="/company/applicants"
+                        to="/home/company/applicants"
                         activeClassName="isActive"
                         type="button"
                         className="btn shadow-none btn-block"
@@ -52,7 +52,7 @@ const Index = () => {
                     </NavLink>
                     <NavLink
                         exact
-                        to="/company/opened-jobs"
+                        to="/home/company/opened-jobs"
                         activeClassName="isActive"
                         type="button"
                         className="btn shadow-none btn-block"
@@ -61,7 +61,7 @@ const Index = () => {
                     </NavLink>
                     <NavLink
                         exact
-                        to="/company/new-job"
+                        to="/home/company/new-job"
                         activeClassName="isActive"
                         type="button"
                         className="btn shadow-none btn-block"
@@ -71,7 +71,7 @@ const Index = () => {
                     <NavLink
                         type="button"
                         exact
-                        to="/company/change-password"
+                        to="/home/company/change-password"
                         activeClassName="isActive"
                         className="btn shadow-none btn-block"
                     >

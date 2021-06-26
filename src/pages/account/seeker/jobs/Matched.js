@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import JobList from '../../../../components/jobs/Index'
 import Preloader from '../../../../components/preloader/Index'
-import Pagination from '../../../../components/pagination/Index'
 
 const Matched = () => {
     const [jobs] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -24,7 +23,6 @@ const Matched = () => {
                 </div>
                 <div className="card-body">
                     <JobList items={jobs} />
-                    <Pagination />
                 </div>
             </div>
         </div>

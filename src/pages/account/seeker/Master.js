@@ -21,11 +21,11 @@ const Master = () => {
                                 </div>
                                 <div className="data-container flex-fill pl-lg-3">
                                     <Switch>
-                                        <Route exact path="/seeker/" component={ProfileIndex} />
-                                        <Route exact path="/seeker/apply-list" component={ApplyIndex} />
-                                        <Route exact path="/seeker/recent-jobs" component={RecentJobs} />
-                                        <Route exact path="/seeker/matched-jobs" component={MatchedJobs} />
-                                        <Route exact path="/seeker/change-password" component={ChangePassword} />
+                                        <Route exact path="/home/seeker/" component={ProfileIndex} />
+                                        <Route exact path="/home/seeker/apply-list" component={ApplyIndex} />
+                                        <Route exact path="/home/seeker/recent-jobs" component={RecentJobs} />
+                                        <Route exact path="/home/seeker/matched-jobs" component={MatchedJobs} />
+                                        <Route exact path="/home/seeker/change-password" component={ChangePassword} />
                                     </Switch>
                                 </div>
                             </div>
