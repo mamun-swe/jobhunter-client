@@ -2,28 +2,20 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import { districts } from '../../utils/districts'
+import { categories } from '../../utils/jobCategory'
 import SingleSelect from '../../components/select/Single'
 
 const Index = () => {
     const history = useHistory()
     const { handleSubmit } = useForm()
     const [location, setLocation] = useState({ value: null, error: null })
-    const [category, setCategory] = useState({
-        value: null,
-        error: false,
-        options: [
-            { label: 'IT Executive', value: 'IT Executive' },
-            { label: 'Software Development', value: 'Software Development' },
-            { label: 'Web Development', value: 'Web Development' },
-            { label: 'Android Development', value: 'Android Development' },
-        ]
-    })
+    const [category, setCategory] = useState({ value: null, error: false })
 
     // Submit form
     const onSubmit = () => {
         if (!category.value) return setCategory({ ...category, error: true })
         if (!location.value) return setLocation({ ...location, error: true })
-        history.push(`/home/search-results?category=${category.value.replace(/ /g, "+")}&location=${category.value.replace(/ /g, "+")}`)
+        history.push(`/home/search-results?category=${category.value.replace(/ /g, "+")}&location=${location.value.replace(/ /g, "+")}`)
     }
 
     return (
@@ -34,7 +26,7 @@ const Index = () => {
                         <SingleSelect
                             error={category.error}
                             placeholder={'category'}
-                            options={category.options}
+                            options={categories}
                             value={(event) => setCategory({ ...category, value: event.value, error: false })}
                         />
                     </div>

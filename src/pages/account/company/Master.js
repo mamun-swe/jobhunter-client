@@ -1,6 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
+import Header from '../../../components/header/Index'
 import ProfileIndex from './profile/Index'
 import JobIndex from './jobs/Index'
 import JobCreate from './jobs/Create'
@@ -13,6 +14,7 @@ import ProfileComponent from '../../../components/companyProfile/Index'
 const Master = () => {
     return (
         <div className="account-master">
+            <Header/>
             <main>
                 <div className="container py-3">
                     <div className="row">

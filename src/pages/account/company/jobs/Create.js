@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import { districts } from '../../../../utils/districts'
+import { categories } from '../../../../utils/jobCategory'
 import RichText from '../../../../components/richText/Index'
 import SingleSelect2 from '../../../../components/select/Single2'
 import Requests from '../../../../utils/Requests/Index'

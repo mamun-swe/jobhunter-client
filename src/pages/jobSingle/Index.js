@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import HtmlParser from 'react-html-parser'
 import { useParams } from 'react-router'
+import { toast } from 'react-toastify'
+
 import { Images } from '../../utils/Images'
 import { dateFormate, StringShort } from '../../utils/_helpers'
 import Requests from '../../utils/Requests/Index'
 
+import Apply from '../../components/modal/Apply'
 import Header from '../../components/header/Index'
 import Footer from '../../components/footer/Index'
 import Preloader from '../../components/preloader/Index'
@@ -12,7 +15,11 @@ import Preloader from '../../components/preloader/Index'
 const Index = () => {
     const { id } = useParams()
     const [job, setJob] = useState(null)
+    const [show, setShow] = useState(false)
     const [isLoading, setLoading] = useState(true)
+    const [header] = useState({
+        headers: { Authorization: "Bearer " + localStorage.getItem('token') }
+    })
 
     // Fetch data
     const fetchData = useCallback(async () => {
@@ -27,7 +34,20 @@ const Index = () => {
 
     useEffect(() => {
         fetchData()
-    }, [id, fetchData])
+    }, [id, header, fetchData])
+
+    // Handle apply
+    const handleApply = async () => {
+        try {
+            const response = await Requests.Website.ApplyJob(id, header)
+            if (response) {
+                toast.success(response.message)
+                setShow(false)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     if (isLoading) return <Preloader />
     return (
@@ -61,7 +81,6 @@ const Index = () => {
                                                 style={{ width: 85, height: 85 }}
                                             >
                                                 <h3 className="font-weight-bold mb-0">{StringShort(job.company.name)}</h3>
-                                                {/* <img src={Images.Job2} className="img-fluid" alt="" /> */}
                                             </div>
                                             <div className="job-tittle pl-4">
                                                 <h4>{job.title}</h4>
@@ -99,7 +118,7 @@ const Index = () => {
                                             <li>Application date : <span>{dateFormate(job.expiredAt)}</span></li>
                                         </ul>
                                         <div className="apply-btn2">
-                                            <button type="button" className="btn">Apply Now</button>
+                                            <button type="button" className="btn" onClick={() => setShow(true)}>Apply Now</button>
                                         </div>
                                     </div>
                                     <div className="post-details4  mb-50">
@@ -119,6 +138,14 @@ const Index = () => {
                             </div>
                         </div>
                     </div>
+
+                    {show ?
+                        <Apply
+                            show={show}
+                            onHide={() => setShow(false)}
+                            submit={handleApply}
+                        />
+                        : null}
 
                 </main>
                 : null}

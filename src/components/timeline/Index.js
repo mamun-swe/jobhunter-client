@@ -24,7 +24,7 @@ const Index = (props) => {
                         </div>
 
                         <div className="card-body p-4">
-                            <small className="mb-0">Location: {item.location}</small>
+                            <small className="mb-0">Location: {item.location}, {item.area}</small>
                             <br />
                             <small>Salary Range: Tk. {item.startSalary} - Tk. {item.endSalary} <span className="text-capitalize">{item.salaryType}</span></small>
 

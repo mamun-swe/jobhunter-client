@@ -17,7 +17,7 @@ const Jobs = async () => {
     }
 }
 
-// Index
+// Show specific job
 const ShowJob = async (id) => {
     try {
         const response = await Axios.get(`${api}website/jobs/${id}`)
@@ -29,9 +29,36 @@ const ShowJob = async (id) => {
     }
 }
 
+// Apply specific job
+const ApplyJob = async (id, header) => {
+    try {
+        const response = await Axios.post(`${api}website/apply`, { jobId: id }, header)
+        if (response.status === 201) {
+            return response.data
+        }
+    } catch (error) {
+        if (error) return errorHandeller(error)
+    }
+}
+
+// Search job
+const Search = async (category, location) => {
+    try {
+        const response = await Axios.get(`${api}website/search?category=${category}&area=${location}`)
+        if (response.status === 200) {
+            return response.data
+        }
+    } catch (error) {
+        if (error) return errorHandeller(error)
+    }
+}
+
+
 const Website = {
     Jobs,
-    ShowJob
+    ShowJob,
+    ApplyJob,
+    Search
 }
 
 export default Website
