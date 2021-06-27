@@ -8,7 +8,7 @@ toast.configure({ autoClose: 2000 })
 // Profile
 const Profile = async (header) => {
     try {
-        const response = await Axios.get(`${api}company/profile`, header)
+        const response = await Axios.get(`${api}user/profile`, header)
         if (response.status === 200) {
             return response.data
         }
@@ -20,7 +20,7 @@ const Profile = async (header) => {
 // Profile Update
 const ProfileUpdate = async (data, header) => {
     try {
-        const response = await Axios.put(`${api}company/profile`, data, header)
+        const response = await Axios.put(`${api}user/profile`, data, header)
         if (response.status === 201) return response
     } catch (error) {
         if (error) return errorHandeller(error)
@@ -30,8 +30,28 @@ const ProfileUpdate = async (data, header) => {
 // Password Update
 const PasswordUpdate = async (data, header) => {
     try {
-        const response = await Axios.put(`${api}company/password-update`, data, header)
+        const response = await Axios.put(`${api}user/password-update`, data, header)
         if (response.status === 201) return response
+    } catch (error) {
+        if (error) return errorHandeller(error)
+    }
+}
+
+// Applicants in job
+const Applicants = async(id, header) => {
+    try {
+        const response = await Axios.get(`${api}user/job/${id}/applicants`, header)
+        if (response.status === 200) return response
+    } catch (error) {
+        if (error) return errorHandeller(error)
+    }
+}
+
+// My Applications
+const MyApplications = async(header) => {
+    try {
+        const response = await Axios.get(`${api}user/my-applications`, header)
+        if (response.status === 200) return response
     } catch (error) {
         if (error) return errorHandeller(error)
     }
@@ -40,7 +60,7 @@ const PasswordUpdate = async (data, header) => {
 // List of jobs
 const JobIndex = async (header) => {
     try {
-        const response = await Axios.get(`${api}company/job`, header)
+        const response = await Axios.get(`${api}user/job`, header)
         if (response.status === 200) return response
     } catch (error) {
         if (error) return errorHandeller(error)
@@ -50,19 +70,21 @@ const JobIndex = async (header) => {
 // Create job
 const CreateJob = async (data, header) => {
     try {
-        const response = await Axios.post(`${api}company/job`, data, header)
+        const response = await Axios.post(`${api}user/job`, data, header)
         if (response.status === 201) return response
     } catch (error) {
         if (error) return errorHandeller(error)
     }
 }
 
-const Company = {
+const Account = {
     Profile,
     ProfileUpdate,
     PasswordUpdate,
+    Applicants,
+    MyApplications,
     JobIndex,
     CreateJob
 }
 
-export default Company
+export default Account

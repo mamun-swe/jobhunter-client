@@ -3,27 +3,32 @@ import { useForm } from 'react-hook-form'
 import Icon from 'react-icons-kit'
 import {
     pieChart,
-    checkCircle,
-    alertCircle,
-    dollarSign
+    checkCircle
 } from 'react-icons-kit/feather'
 import { toast } from 'react-toastify'
-import Preloader from '../../../../components/preloader/Index'
-import Requests from '../../../../utils/Requests/Index'
+import Preloader from '../../../components/preloader/Index'
+import Requests from '../../../utils/Requests/Index'
 
 const Index = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const [isLoading, setLoading] = useState(true)
     const [isSubmit, setSubmit] = useState(false)
-    const [company, setCompany] = useState(null)
+    const [user, setUser] = useState(null)
+    const [openedJob, setOpenedJob] = useState(null)
+    const [applied, setApplied] = useState(null)
     const [header] = useState({
         headers: { Authorization: "Bearer " + localStorage.getItem('token') }
     })
 
     // Fetch data
     const fetchData = useCallback(async () => {
-        const response = await Requests.Company.Profile(header)
-        if (response) setCompany(response.company)
+        const response = await Requests.Account.Profile(header)
+        console.log(response.user)
+        if (response) {
+            setUser(response.user)
+            setOpenedJob(response.openedJob)
+            setApplied(response.applied)
+        }
         setLoading(false)
     }, [header])
 
@@ -36,7 +41,7 @@ const Index = () => {
     const onSubmit = async data => {
         try {
             setSubmit(true)
-            const response = await Requests.Company.ProfileUpdate(data, header)
+            const response = await Requests.Account.ProfileUpdate(data, header)
             if (response.status === 201) {
                 toast.success(response.data.message)
                 setSubmit(false)
@@ -58,29 +63,15 @@ const Index = () => {
                     <div>
                         <div className="item-container">
                             <div className="item-body">
-                                <p><Icon icon={pieChart} size={20} className="mr-1" /> Total Jobs</p>
-                                <h5>110.0</h5>
+                                <p><Icon icon={pieChart} size={20} className="mr-1" /> Opened Jobs</p>
+                                <h5>{openedJob ? openedJob + ".00" : "0.00"}</h5>
                             </div>
                         </div>
 
                         <div className="item-container">
                             <div className="item-body">
-                                <p><Icon icon={checkCircle} size={20} className="mr-1" /> Approved Applicant</p>
-                                <h5>110.0</h5>
-                            </div>
-                        </div>
-
-                        <div className="item-container">
-                            <div className="item-body">
-                                <p><Icon icon={alertCircle} size={20} className="mr-1" /> Pending Applicant</p>
-                                <h5>110.0</h5>
-                            </div>
-                        </div>
-
-                        <div className="item-container">
-                            <div className="item-body">
-                                <p><Icon icon={dollarSign} size={20} className="mr-1" />Available Coin</p>
-                                <h5>110.0</h5>
+                                <p><Icon icon={checkCircle} size={20} className="mr-1" /> You Applied</p>
+                                <h5>{applied ? applied + ".00" : "0.00"}</h5>
                             </div>
                         </div>
                     </div>
@@ -99,15 +90,15 @@ const Index = () => {
                                 <div className="form-group">
                                     {errors.name && errors.name.message ? (
                                         <label className="text-danger">{errors.name && errors.name.message}</label>
-                                    ) : <label>Company Name</label>}
+                                    ) : <label>Name</label>}
 
                                     <input
                                         type="text"
                                         className="form-control"
-                                        placeholder="Company name"
-                                        defaultValue={company ? company.name : null}
+                                        placeholder="Name"
+                                        defaultValue={user ? user.name : null}
                                         {...register("name", {
-                                            required: "Company name is required"
+                                            required: "Name is required"
                                         })}
                                     />
                                 </div>
@@ -125,7 +116,7 @@ const Index = () => {
                                         className="form-control"
                                         placeholder="Enter e-mail"
                                         disabled
-                                        defaultValue={company ? company.email : null}
+                                        defaultValue={user ? user.email : null}
                                     />
                                 </div>
                             </div>
@@ -142,25 +133,25 @@ const Index = () => {
                                         type="text"
                                         className="form-control"
                                         placeholder="Enter website address"
-                                        defaultValue={company ? company.website : null}
+                                        defaultValue={user ? user.website : null}
                                         {...register("website", { required: "Website address is required" })}
                                     />
                                 </div>
                             </div>
 
-                            {/* Company description */}
+                            {/* Description */}
                             <div className="col-12">
                                 <div className="form-group">
                                     {errors.description && errors.description.message ? (
                                         <label className="text-danger">{errors.description && errors.description.message}</label>
-                                    ) : <label>Company description</label>}
+                                    ) : <label>Description</label>}
 
                                     <textarea
                                         rows={6}
                                         className="form-control"
-                                        placeholder="Enter company description"
-                                        defaultValue={company ? company.description : null}
-                                        {...register("description", { required: "Company description is required" })}
+                                        placeholder="Enter description"
+                                        defaultValue={user ? user.description : null}
+                                        {...register("description", { required: "Description is required" })}
                                     />
                                 </div>
                             </div>

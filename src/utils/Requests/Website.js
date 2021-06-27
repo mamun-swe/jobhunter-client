@@ -53,12 +53,24 @@ const Search = async (category, location) => {
     }
 }
 
+// Post a comment
+const Comment = async (data, header) => {
+    try {
+        const response = await Axios.post(`${api}website/comment`, data, header)
+        if (response.status === 201) {
+            return response
+        }
+    } catch (error) {
+        if (error) return errorHandeller(error)
+    }
+}
 
 const Website = {
     Jobs,
     ShowJob,
     ApplyJob,
-    Search
+    Search,
+    Comment
 }
 
 export default Website

@@ -2,16 +2,17 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
-import { districts } from '../../../../utils/districts'
-import { categories } from '../../../../utils/jobCategory'
-import RichText from '../../../../components/richText/Index'
-import SingleSelect2 from '../../../../components/select/Single2'
-import Requests from '../../../../utils/Requests/Index'
+import { districts } from '../../../utils/districts'
+import { categories } from '../../../utils/jobCategory'
+import RichText from '../../../components/richText/Index'
+import SingleSelect2 from '../../../components/select/Single2'
+import Requests from '../../../utils/Requests/Index'
 
 const Create = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm()
     const [description, setDescription] = useState({ value: null, error: null })
     const [area, setArea] = useState({ value: null, error: null })
+    const [category, setCategory] = useState({ value: null, error: null })
     const [isLoading, setLoading] = useState(false)
     const [header] = useState({
         headers: { Authorization: "Bearer " + localStorage.getItem('token') }
@@ -27,10 +28,11 @@ const Create = () => {
             const formData = {
                 ...data,
                 area: area.value,
+                category: category.value,
                 description: description.value
             }
-            
-            const response = await Requests.Company.CreateJob(formData, header)
+
+            const response = await Requests.Account.CreateJob(formData, header)
             if (response.status === 201) {
                 toast.success(response.data.message)
                 reset()
@@ -107,19 +109,16 @@ const Create = () => {
                                 {/* Job category */}
                                 <div className="col-12">
                                     <div className="form-group">
-                                        {errors.category && errors.category.message ? (
-                                            <label className="text-danger">{errors.category && errors.category.message}</label>
-                                        ) : <label>Job category</label>}
+                                        {category.error ?
+                                            <label className="text-danger">{category.error}</label>
+                                            : <label>Job Category</label>}
 
-                                        <select
-                                            className="form-control"
-                                            {...register("category", {
-                                                required: "Category is required"
-                                            })}
-                                        >
-                                            <option value="IT">IT</option>
-                                            <option value="Software">Software</option>
-                                        </select>
+                                        <SingleSelect2
+                                            error={category.error}
+                                            placeholder={'category'}
+                                            options={categories}
+                                            value={(event) => setCategory({ value: event.value, error: null })}
+                                        />
                                     </div>
                                 </div>
 
@@ -187,8 +186,8 @@ const Create = () => {
                                                 required: "Type is required"
                                             })}
                                         >
-                                            <option value="full time">Full time</option>
-                                            <option value="part-time">Part-time</option>
+                                            <option value="Full time">Full time</option>
+                                            <option value="Part-time">Part-time</option>
                                         </select>
                                     </div>
                                 </div>

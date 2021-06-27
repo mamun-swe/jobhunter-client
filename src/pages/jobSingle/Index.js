@@ -80,12 +80,12 @@ const Index = () => {
                                             <div className="company-img company-img-details border rounded flex-center flex-column"
                                                 style={{ width: 85, height: 85 }}
                                             >
-                                                <h3 className="font-weight-bold mb-0">{StringShort(job.company.name)}</h3>
+                                                <h3 className="font-weight-bold mb-0">{StringShort(job.createdBy.name)}</h3>
                                             </div>
                                             <div className="job-tittle pl-4">
                                                 <h4>{job.title}</h4>
                                                 <ul>
-                                                    <li>{job.company.name}</li>
+                                                    <li>{job.createdBy.name}</li>
                                                     <li className="mx-3">{job.location}</li>
                                                     <li>Tk. {job.startSalary} - Tk. {job.endSalary}</li>
                                                 </ul>
@@ -114,7 +114,8 @@ const Index = () => {
                                             <li>Location : <span>{job.location}</span></li>
                                             <li>Vacancy : <span>{job.vacancy}</span></li>
                                             <li>Job nature : <span className="text-capitalize">{job.jobType}</span></li>
-                                            <li>Salary :  <span className="text-capitalize">Tk. {job.startSalary} - Tk. {job.endSalary} {job.salaryType}</span></li>
+                                            <li>Salary : </li>
+                                            <li><span className="text-capitalize pl-3">Tk. {job.startSalary} - Tk. {job.endSalary} {job.salaryType}</span></li>
                                             <li>Application date : <span>{dateFormate(job.expiredAt)}</span></li>
                                         </ul>
                                         <div className="apply-btn2">
@@ -126,12 +127,12 @@ const Index = () => {
                                         <div className="small-section-tittle">
                                             <h4>Company Information</h4>
                                         </div>
-                                        <span>{job.company.name}</span>
-                                        <p>{job.company.description}</p>
+                                        <span>{job.createdBy.name}</span>
+                                        <p>{job.createdBy.description}</p>
                                         <ul>
-                                            <li>Name: <span>{job.company.name} </span></li>
-                                            <li>Web : <span> {job.company.website}</span></li>
-                                            <li>Email: <span>{job.company.email}</span></li>
+                                            <li>Name: <span>{job.createdBy.name} </span></li>
+                                            <li>Web : <span> {job.createdBy.website}</span></li>
+                                            <li>Email: <span>{job.createdBy.email}</span></li>
                                         </ul>
                                     </div>
                                 </div>

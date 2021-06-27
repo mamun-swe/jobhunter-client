@@ -2,7 +2,7 @@ import React from 'react'
 import { Icon } from 'react-icons-kit'
 import { Link } from 'react-router-dom'
 import { mapPin } from 'react-icons-kit/feather'
-import Moment from "moment"
+import { formatDateWithAMPM } from '../../utils/_helpers'
 
 const Index = (props) => {
     return (
@@ -15,7 +15,7 @@ const Index = (props) => {
                                 <h4>{item.title}</h4>
                             </Link>
                             <ul>
-                                <li>{item.company.name}</li>
+                                <li>{item.createdBy.name}</li>
                                 <li><Icon icon={mapPin} size={18} />{item.location}</li>
                                 <li>{item.startSalary} TK - {item.endSalary} TK</li>
                             </ul>
@@ -23,7 +23,7 @@ const Index = (props) => {
                     </div>
                     <div className="items-link items-link2 f-right text-capitalize">
                         <Link to={`/home/job/${item._id}`}>{item.jobType}</Link>
-                        <span>{Moment().endOf(item.createdAt).fromNow()}</span>
+                        <span>{formatDateWithAMPM(item.createdAt)}</span>
                     </div>
                 </div>
             )}

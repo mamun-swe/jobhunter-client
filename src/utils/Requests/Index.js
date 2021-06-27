@@ -1,10 +1,10 @@
 import Auth from './Auth'
-import Company from './Company'
+import Account from './Account'
 import Website from './Website'
 
 const Requests = {
     Auth,
-    Company,
+    Account,
     Website
 }
 

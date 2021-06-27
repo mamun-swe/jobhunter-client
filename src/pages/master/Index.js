@@ -7,8 +7,7 @@ import JobSingle from '../jobSingle/Index'
 import Contact from '../contact/Index'
 import About from '../about/Index'
 
-import SeekerMaster from '../account/seeker/Master'
-import CompanyMaster from '../account/company/Master'
+import AccountMaster from '../account/Master'
 import RoleBasedRoute from '../../components/privateRoute/Index'
 
 const Index = () => {
@@ -20,8 +19,7 @@ const Index = () => {
                 <Route exact path="/home/search-results" component={SearchResult} />
                 <Route exact path="/home/about" component={About} />
                 <Route exact path="/home/contact" component={Contact} />
-                <RoleBasedRoute path="/home/seeker/" component={SeekerMaster} role={'seeker'} />
-                <RoleBasedRoute path="/home/company/" component={CompanyMaster} role={'company'} />
+                <RoleBasedRoute path="/home/account/" component={AccountMaster} role={'user'} />
             </Switch>
         </div>
     )

@@ -37,7 +37,7 @@ const Index = () => {
                     <div className="row justify-content-center">
                         <div className="col-lg-8 pt-5">
                             <Search />
-                            <Timeline items={jobs} />
+                            <Timeline items={jobs} refetch={fetchData} />
                         </div>
                     </div>
                 </div>

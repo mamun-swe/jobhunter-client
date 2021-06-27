@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import jwtDecode from 'jwt-decode'
 import { Link } from 'react-router-dom'
 import { Images } from '../../utils/Images'
 
 const Index = () => {
-    const [role, setRole] = useState(null)
+    const [role, setRole] = useState(false)
 
     useEffect(() => {
         const token = localStorage.getItem("token")
-        if (token) {
-            const decodeToken = jwtDecode(token)
-            if (decodeToken && decodeToken.role === "company") setRole("company")
-            if (decodeToken && decodeToken.role === "seeker") setRole("seeker")
-        }
+        if (token) setRole(true)
     }, [])
 
     return (
@@ -34,7 +29,7 @@ const Index = () => {
                                                 <li><Link to="/home">Home</Link></li>
                                                 <li><Link to="/home/about">About</Link></li>
                                                 <li><Link to="/home/contact">Contact</Link></li>
-                                                {role ? <li><Link to={`/home/${role}/`}>Profile</Link></li> : null}
+                                                {role ? <li><Link to={`/home/account`}>Profile</Link></li> : null}
                                             </ul>
                                         </nav>
                                     </div>

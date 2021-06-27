@@ -76,22 +76,6 @@ const Index = () => {
                                             />
                                         </div>
 
-                                        {/* Created for */}
-                                        <div className="form-group">
-                                            {errors.role && errors.role.message ? (
-                                                <label className="text-danger">{errors.role && errors.role.message}</label>
-                                            ) : <label>Account created for</label>}
-
-                                            <select
-                                                className="form-control"
-                                                {...register("role", {
-                                                    required: "Option is required"
-                                                })}
-                                            >
-                                                <option value="seeker">Job Seeker</option>
-                                                <option value="company">Company</option>
-                                            </select>
-                                        </div>
 
                                         {/* Password */}
                                         <div className="form-group mb-0">

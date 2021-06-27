@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react'
 
-import JobList from '../../../../components/jobs/Index'
-import Preloader from '../../../../components/preloader/Index'
-import Requests from '../../../../utils/Requests/Index'
+import JobList from '../../../components/jobs/Index'
+import Preloader from '../../../components/preloader/Index'
+import Requests from '../../../utils/Requests/Index'
 
 const Index = () => {
     const [jobs, setJobs] = useState([])
@@ -15,10 +15,8 @@ const Index = () => {
     const fetchData = useCallback(async () => {
         try {
             setLoading(true)
-            const response = await Requests.Company.JobIndex(header)
-            if (response) {
-                setJobs(response.data.jobs)
-            }
+            const response = await Requests.Account.JobIndex(header)
+            if (response) setJobs(response.data.jobs)
             setLoading(false)
         } catch (error) {
             if (error) setLoading(false)
@@ -31,7 +29,6 @@ const Index = () => {
 
 
     if (isLoading) return <Preloader />
-
     return (
         <div>
             <div className="card border-0 shadow-sm">

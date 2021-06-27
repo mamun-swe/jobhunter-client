@@ -1,20 +1,20 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
-import Header from '../../../components/header/Index'
+import Header from '../../components/header/Index'
 import ProfileIndex from './profile/Index'
 import JobIndex from './jobs/Index'
 import JobCreate from './jobs/Create'
 import ApplicantIndex from './applicants/Index'
 import ApplicantShow from './applicants/Show'
+import MyApplications from './myApplications/Index'
 import ChangePassword from './changePassword/Index'
-
-import ProfileComponent from '../../../components/companyProfile/Index'
+import ProfileComponent from '../../components/profile/Index'
 
 const Master = () => {
     return (
         <div className="account-master">
-            <Header/>
+            <Header />
             <main>
                 <div className="container py-3">
                     <div className="row">
@@ -25,12 +25,13 @@ const Master = () => {
                                 </div>
                                 <div className="data-container flex-fill pl-lg-3">
                                     <Switch>
-                                        <Route exact path="/home/company/" component={ProfileIndex} />
-                                        <Route exact path="/home/company/applicants" component={ApplicantIndex} />
-                                        <Route exact path="/home/company/job/:id/applicants" component={ApplicantShow} />
-                                        <Route exact path="/home/company/opened-jobs" component={JobIndex} />
-                                        <Route exact path="/home/company/new-job" component={JobCreate} />
-                                        <Route exact path="/home/company/change-password" component={ChangePassword} />
+                                        <Route exact path="/home/account/" component={ProfileIndex} />
+                                        <Route exact path="/home/account/applicants" component={ApplicantIndex} />
+                                        <Route exact path="/home/account/applicants/:id" component={ApplicantShow} />
+                                        <Route exact path="/home/account/applications" component={MyApplications} />
+                                        <Route exact path="/home/account/opened-jobs" component={JobIndex} />
+                                        <Route exact path="/home/account/new-job" component={JobCreate} />
+                                        <Route exact path="/home/account/change-password" component={ChangePassword} />
                                     </Switch>
                                 </div>
                             </div>

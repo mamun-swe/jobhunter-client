@@ -1,11 +1,40 @@
-
+import React, {
+    useEffect,
+    useState,
+    useCallback
+} from 'react'
 import Icon from "react-icons-kit"
-import { NavLink, useHistory } from "react-router-dom"
-import { grid, settings, clock, checkCircle, logOut, pieChart } from "react-icons-kit/feather"
+import {
+    NavLink,
+    useHistory
+} from "react-router-dom"
+import {
+    grid,
+    settings,
+    clock,
+    checkCircle,
+    logOut,
+    pieChart
+} from "react-icons-kit/feather"
 import { Images } from "../../utils/Images"
+import Requests from '../../utils/Requests/Index'
 
 const Index = () => {
     const history = useHistory()
+    const [user, setUser] = useState(null)
+    const [header] = useState({
+        headers: { Authorization: "Bearer " + localStorage.getItem('token') }
+    })
+
+    // Fetch data
+    const fetchData = useCallback(async () => {
+        const response = await Requests.Account.Profile(header)
+        if (response) setUser(response.user)
+    }, [header])
+
+    useEffect(() => {
+        fetchData()
+    }, [header, fetchData])
 
     const doLogout = () => {
         localStorage.clear()
@@ -26,15 +55,15 @@ const Index = () => {
 
                     {/* Content container */}
                     <div className="content-container">
-                        <h6>ABC Inc. <small>(Company)</small></h6>
-                        <p>abcinc@gmail.com</p>
+                        <h6>{user ? user.name : null}</h6>
+                        <p>{user ? user.email : null}</p>
                     </div>
                 </div>
 
                 <div className="card-body px-0 pt-0">
                     <NavLink
                         exact
-                        to="/home/company/"
+                        to="/home/account/"
                         activeClassName="isActive"
                         type="button"
                         className="btn shadow-none btn-block"
@@ -43,7 +72,7 @@ const Index = () => {
                     </NavLink>
                     <NavLink
                         exact
-                        to="/home/company/applicants"
+                        to="/home/account/applicants"
                         activeClassName="isActive"
                         type="button"
                         className="btn shadow-none btn-block"
@@ -52,7 +81,16 @@ const Index = () => {
                     </NavLink>
                     <NavLink
                         exact
-                        to="/home/company/opened-jobs"
+                        to="/home/account/applications"
+                        activeClassName="isActive"
+                        type="button"
+                        className="btn shadow-none btn-block"
+                    >
+                        <Icon icon={pieChart} size={18} />Your Applications
+                    </NavLink>
+                    <NavLink
+                        exact
+                        to="/home/account/opened-jobs"
                         activeClassName="isActive"
                         type="button"
                         className="btn shadow-none btn-block"
@@ -61,7 +99,7 @@ const Index = () => {
                     </NavLink>
                     <NavLink
                         exact
-                        to="/home/company/new-job"
+                        to="/home/account/new-job"
                         activeClassName="isActive"
                         type="button"
                         className="btn shadow-none btn-block"
@@ -71,7 +109,7 @@ const Index = () => {
                     <NavLink
                         type="button"
                         exact
-                        to="/home/company/change-password"
+                        to="/home/account/change-password"
                         activeClassName="isActive"
                         className="btn shadow-none btn-block"
                     >
