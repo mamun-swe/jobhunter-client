@@ -77,6 +77,18 @@ const CreateJob = async (data, header) => {
     }
 }
 
+// Update item image
+const UploadCv = async (data, header) => {
+    try {
+        const response = await Axios.post(`${api}user/upload-cv`, data, header)
+        if (response.status === 201) {
+            return response.data
+        }
+    } catch (error) {
+        if (error) return errorHandeller(error)
+    }
+}
+
 const Account = {
     Profile,
     ProfileUpdate,
@@ -84,7 +96,8 @@ const Account = {
     Applicants,
     MyApplications,
     JobIndex,
-    CreateJob
+    CreateJob,
+    UploadCv
 }
 
 export default Account

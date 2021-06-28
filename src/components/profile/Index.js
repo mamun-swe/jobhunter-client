@@ -14,7 +14,8 @@ import {
     clock,
     checkCircle,
     logOut,
-    pieChart
+    pieChart,
+    fileText
 } from "react-icons-kit/feather"
 import { Images } from "../../utils/Images"
 import Requests from '../../utils/Requests/Index'
@@ -69,6 +70,15 @@ const Index = () => {
                         className="btn shadow-none btn-block"
                     >
                         <Icon icon={grid} size={18} />Profile
+                    </NavLink>
+                    <NavLink
+                        exact
+                        to="/home/account/cv"
+                        activeClassName="isActive"
+                        type="button"
+                        className="btn shadow-none btn-block"
+                    >
+                        <Icon icon={fileText} size={18} />My CV
                     </NavLink>
                     <NavLink
                         exact

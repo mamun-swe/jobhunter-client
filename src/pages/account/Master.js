@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import Header from '../../components/header/Index'
 import ProfileIndex from './profile/Index'
+import CvIndex from './cv/Index'
 import JobIndex from './jobs/Index'
 import JobCreate from './jobs/Create'
 import ApplicantIndex from './applicants/Index'
@@ -26,6 +27,7 @@ const Master = () => {
                                 <div className="data-container flex-fill pl-lg-3">
                                     <Switch>
                                         <Route exact path="/home/account/" component={ProfileIndex} />
+                                        <Route exact path="/home/account/cv" component={CvIndex} />
                                         <Route exact path="/home/account/applicants" component={ApplicantIndex} />
                                         <Route exact path="/home/account/applicants/:id" component={ApplicantShow} />
                                         <Route exact path="/home/account/applications" component={MyApplications} />

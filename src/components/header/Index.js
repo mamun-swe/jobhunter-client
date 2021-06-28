@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { Images } from '../../utils/Images'
 
 const Index = () => {
+    const history = useHistory()
     const [role, setRole] = useState(false)
 
     useEffect(() => {
         const token = localStorage.getItem("token")
         if (token) setRole(true)
     }, [])
+
+    const doLogout = () => {
+        localStorage.clear()
+        history.push("/")
+    }
 
     return (
         <header>
@@ -30,6 +36,12 @@ const Index = () => {
                                                 <li><Link to="/home/about">About</Link></li>
                                                 <li><Link to="/home/contact">Contact</Link></li>
                                                 {role ? <li><Link to={`/home/account`}>Profile</Link></li> : null}
+                                                <li>
+                                                    <Link
+                                                        to="#"
+                                                        onClick={doLogout}
+                                                    >Logout</Link>
+                                                </li>
                                             </ul>
                                         </nav>
                                     </div>
