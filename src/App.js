@@ -12,6 +12,7 @@ import HomeMaster from './pages/master/Index'
 
 import FourOFour from './pages/fourOfour/Index'
 import ScrollToTop from './components/scrollToTop/Index'
+import PrivateRoute from './components/privateRoute/Index'
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Register} />
-            <Route path="/home/" component={HomeMaster} />
+            <PrivateRoute path="/home/" role="user" component={HomeMaster} />
             <Route path="*" component={FourOFour} />
           </Switch>
         </ScrollToTop>

@@ -1,10 +1,18 @@
 import React, { useEffect, useState, useCallback } from 'react'
+import jwtDecode from 'jwt-decode'
+import { Icon } from 'react-icons-kit'
+import { messageCircle } from 'react-icons-kit/feather'
+
 import Requests from '../../../utils/Requests/Index'
 import Preloader from '../../../components/preloader/Index'
+import ChatLauncher from '../../../components/chat/Index'
 
 const Index = () => {
     const [applications, setApplications] = useState([])
     const [isLoading, setLoading] = useState(true)
+    const [author, setAuthor] = useState(null)
+    const [reciver, setReciver] = useState(null)
+    const [open, setOpen] = useState(false)
     const [header] = useState({
         headers: { Authorization: "Bearer " + localStorage.getItem('token') }
     })
@@ -22,9 +30,26 @@ const Index = () => {
     }, [header])
 
     useEffect(() => {
+        const token = localStorage.getItem("token")
+        if (token) {
+            const decode = jwtDecode(token)
+            const myId = decode._id
+            setAuthor(myId)
+        }
         fetchData()
     }, [header, fetchData])
 
+    // Handle message box open
+    const handleOpen = data => {
+        setReciver(data)
+        setOpen(true)
+    }
+
+    // Handle close chat box
+    const handleClose = () => {
+        setOpen(true)
+        setReciver(null)
+    }
 
     if (isLoading) return <Preloader />
 
@@ -48,7 +73,17 @@ const Index = () => {
                                     <tr key={i}>
                                         <td className="text-center" style={{ minWidth: 50 }}><p>{i + 1}</p></td>
                                         <td style={{ minWidth: 250 }}>
-                                            <p>Company : {item.createdBy.name}</p>
+                                            <div className="d-flex">
+                                                <div><p>Company : {item.createdBy.name}</p></div>
+                                                <div className="ml-auto">
+                                                    <Icon
+                                                        icon={messageCircle}
+                                                        style={{ color: '#F4A261' }}
+                                                        size={25}
+                                                        onClick={() => handleOpen(item.createdBy)}
+                                                    />
+                                                </div>
+                                            </div>
                                             <p>Website : {item.createdBy.website}</p>
                                             <p>Position : {item.title}</p>
                                             <p>Location : {item.location}, {item.area}</p>
@@ -59,6 +94,15 @@ const Index = () => {
                     </table>
                 </div>
             </div>
+
+            {reciver ?
+                <ChatLauncher
+                    show={open}
+                    author={author}
+                    reciver={reciver}
+                    onHide={handleClose}
+                />
+                : null}
         </div>
     );
 };

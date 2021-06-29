@@ -17,7 +17,7 @@ const RoleBasedRouting = ({ component: Component, role, ...rest }) => {
             )}
             {
                 !isLoggedin(role) && (
-                    <Redirect to={{ pathname: "/home" }} />
+                    <Redirect to={{ pathname: "/" }} />
                 )
             }
         </>

@@ -2,22 +2,20 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { Icon } from 'react-icons-kit'
 import { messageCircle } from 'react-icons-kit/feather'
-import { Launcher } from 'react-chat-window'
 import jwtDecode from 'jwt-decode'
 
 import Requests from '../../../utils/Requests/Index'
 import Preloader from '../../../components/preloader/Index'
+import ChatLauncher from '../../../components/chat/Index'
 
 const Index = () => {
     const { id } = useParams()
-    const [me, setMe] = useState(null)
     const [job, setJob] = useState(null)
     const [isLoading, setLoading] = useState(true)
 
-    const [user, setUser] = useState(null)
+    const [author, setAuthor] = useState(null)
+    const [reciver, setReciver] = useState(null)
     const [open, setOpen] = useState(false)
-    const [messageList, setMessageList] = useState([])
-
     const [header] = useState({
         headers: { Authorization: "Bearer " + localStorage.getItem('token') }
     })
@@ -42,7 +40,7 @@ const Index = () => {
         if (token) {
             const decode = jwtDecode(token)
             const myId = decode._id
-            setMe(myId)
+            setAuthor(myId)
         }
         fetchData()
     }, [id, header, fetchData])
@@ -50,25 +48,14 @@ const Index = () => {
 
     // Handle message box open
     const handleOpen = data => {
-        setUser(data)
+        setReciver(data)
         setOpen(true)
     }
 
     // Handle close chat box
     const handleClose = () => {
         setOpen(true)
-        setUser(null)
-    }
-
-    // Handle messge sent
-    const _onMessageWasSent = message => {
-        let messageText = {}
-        messageText.author = me
-        messageText.to = user._id
-        messageText.message = message.data.text
-
-        console.log(messageText);
-        setMessageList([...messageList, message])
+        setReciver(null)
     }
 
 
@@ -87,14 +74,17 @@ const Index = () => {
                             <div className="applicant-container d-flex border-bottom px-3 mb-3" key={i}>
                                 <div className="pr-3"><h6>{i + 1}.</h6></div>
                                 <div className="flex-fill">
-                                    <h6 className="text-capitalize mb-3">{items.name}
-                                        <Icon
-                                            icon={messageCircle}
-                                            style={{ color: '#F4A261' }}
-                                            size={25}
-                                            onClick={() => handleOpen(items)}
-                                        />
-                                    </h6>
+                                    <div className="d-flex">
+                                        <div><h6 className="text-capitalize mb-3">{items.name}</h6></div>
+                                        <div className="ml-auto">
+                                            <Icon
+                                                icon={messageCircle}
+                                                style={{ color: '#F4A261' }}
+                                                size={25}
+                                                onClick={() => handleOpen(items)}
+                                            />
+                                        </div>
+                                    </div>
                                     <p className="mb-0">E-mail: {items.email}</p>
                                     <p className="mb-0">Website: {items.website}</p>
                                     <p className="mb-0"><b>Description : </b></p>
@@ -106,19 +96,15 @@ const Index = () => {
                 </div>
             }
 
-            {user ?
-                <Launcher
-                    agentProfile={{
-                        teamName: user ? user.name : "Unknown",
-                        imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
-                    }}
-                    onMessageWasSent={_onMessageWasSent}
-                    messageList={messageList}
-                    showEmoji={false}
-                    isOpen={open}
-                    handleClick={handleClose}
+            {reciver ?
+                <ChatLauncher
+                    show={open}
+                    author={author}
+                    reciver={reciver}
+                    onHide={handleClose}
                 />
                 : null}
+
         </div>
     )
 }
