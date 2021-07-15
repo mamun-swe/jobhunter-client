@@ -6,6 +6,7 @@ import SearchResult from '../search/Index'
 import JobSingle from '../jobSingle/Index'
 import Contact from '../contact/Index'
 import About from '../about/Index'
+import Profile from '../profile/Index'
 
 import AccountMaster from '../account/Master'
 import RoleBasedRoute from '../../components/privateRoute/Index'
@@ -19,6 +20,7 @@ const Index = () => {
                 <Route exact path="/home/search-results" component={SearchResult} />
                 <Route exact path="/home/about" component={About} />
                 <Route exact path="/home/contact" component={Contact} />
+                <Route exact path="/home/profile/:id" component={Profile} />
                 <RoleBasedRoute path="/home/account/" component={AccountMaster} role={'user'} />
             </Switch>
         </div>

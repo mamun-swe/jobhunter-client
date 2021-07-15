@@ -47,7 +47,10 @@ const Index = (props) => {
                                 </div>
                                 <div className="pl-3">
                                     <Link to={`/home/job/${item._id}`}><h6>{item.title}</h6></Link>
-                                    <p>{item.createdBy.name}</p>
+
+                                    <Link to={`/home/profile/${item.createdBy._id}`}>
+                                        <p>{item.createdBy.name}</p>
+                                    </Link>
                                 </div>
                                 <div className="ml-auto"><p>{item.jobType}</p></div>
                             </div>

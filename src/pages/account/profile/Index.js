@@ -57,7 +57,7 @@ const Index = () => {
         <div className="dashboard-container">
             <div className="card border-0 shadow-sm">
                 <div className="card-header bg-white border-0 px-4 pt-4 pb-0">
-                    <h6 className="mb-0">Welcome <span className="text-capitalize">ABC inc.</span></h6>
+                    <h6 className="mb-0">Welcome <span className="text-capitalize">{user ? user.name : null}</span></h6>
                 </div>
                 <div className="card-body p-3">
                     <div>

@@ -65,12 +65,25 @@ const Comment = async (data, header) => {
     }
 }
 
+// Show profile
+const Profile = async (id, header) => {
+    try {
+        const response = await Axios.get(`${api}website/profile/${id}`, header)
+        if (response.status === 200) {
+            return response
+        }
+    } catch (error) {
+        if (error) return errorHandeller(error)
+    }
+}
+
 const Website = {
     Jobs,
     ShowJob,
     ApplyJob,
     Search,
-    Comment
+    Comment,
+    Profile
 }
 
 export default Website
