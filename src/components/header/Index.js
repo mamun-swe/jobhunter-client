@@ -24,7 +24,7 @@ const Index = () => {
                         <div className="row align-items-center">
                             <div className="col-lg-3 col-md-2">
                                 <div className="logo">
-                                    <Link to="/home"><img src={Images.Logo} alt="" /></Link>
+                                    <Link to="/home"><img src={Images.Logo} alt="" style={{height: 30}} /></Link>
                                 </div>
                             </div>
                             <div className="col-lg-9 col-md-9">
