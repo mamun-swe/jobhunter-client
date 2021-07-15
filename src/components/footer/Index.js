@@ -1,7 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Icon } from 'react-icons-kit'
-import { navigation } from 'react-icons-kit/feather'
 
 const Index = () => {
     return (

@@ -6,7 +6,7 @@ import Requests from '../../utils/Requests/Index'
 let socket
 
 const Index = (props) => {
-    const ENDPOINT = 'http://127.0.0.1:4000'
+    const ENDPOINT = 'https://ja.pranjolerp.com'
     const [messageList, setMessageList] = useState([])
     const [header] = useState({
         headers: { Authorization: "Bearer " + localStorage.getItem('token') }

@@ -12,6 +12,7 @@ import Requests from '../../../utils/Requests/Index'
 
 const Index = () => {
     const [user, setUser] = useState(null)
+    const [isLoading, setLoading] = useState(false)
     const [header] = useState({
         headers: { Authorization: "Bearer " + localStorage.getItem('token') }
     })
@@ -31,6 +32,7 @@ const Index = () => {
     const handleImage = async (event) => {
         const file = event.target.files[0]
         if (file) {
+            setLoading(true)
             let formData = new FormData()
             formData.append('cv', file)
             const response = await Requests.Account.UploadCv(formData, header)
@@ -38,10 +40,11 @@ const Index = () => {
             if (response.status === true) {
                 toast.success(response.message)
             }
+            setLoading(false)
         }
     }
 
-  
+
 
     return (
         <div className="card border-0 shadow-sm">
@@ -55,14 +58,16 @@ const Index = () => {
 
                 {/* Image upload Container */}
                 <div className="img-container text-center pt-5">
-                    <div className="image">
-                        <input
-                            type="file"
-                            accept="pdf/*"
-                            className="upload"
-                            onChange={handleImage}
-                        />
-                    </div>
+                    {isLoading ? <p>Uploading ...</p> :
+                        <div className="image">
+                            <input
+                                type="file"
+                                accept="pdf/*"
+                                className="upload"
+                                onChange={handleImage}
+                            />
+                        </div>
+                    }
                 </div>
             </div>
         </div>
