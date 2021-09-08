@@ -17,12 +17,16 @@ import {
     pieChart,
     fileText
 } from "react-icons-kit/feather"
+import { Edit2 } from 'react-feather'
+import { FileUpload } from '../modal/FileUpload/Index'
 import { Images } from "../../utils/Images"
 import Requests from '../../utils/Requests/Index'
 
 const Index = () => {
     const history = useHistory()
     const [user, setUser] = useState(null)
+    const [show, setShow] = useState(false)
+    const [isUpload, setUpload] = useState(false)
     const [header] = useState({
         headers: { Authorization: "Bearer " + localStorage.getItem('token') }
     })
@@ -37,6 +41,18 @@ const Index = () => {
         fetchData()
     }, [header, fetchData])
 
+    // handle picture upload
+    const handleUpload = async data => {
+        setUpload(true)
+        const formData = new FormData()
+        formData.append("image", data)
+
+        await Requests.Account.ProfilePictureUpload(formData, header)
+        fetchData()
+        setUpload(false)
+        setShow(false)
+    }
+
     const doLogout = () => {
         localStorage.clear()
         history.push("/")
@@ -44,13 +60,20 @@ const Index = () => {
 
     return (
         <div className="profile-card-container">
-            <div className="card border-0 shadow-sm">
+            <div className="card border-0 shadow">
                 <div className="card-header bg-white border-0 p-4">
 
                     {/* Image container */}
                     <div className="image-container flex-center flex-column">
                         <div className="image">
-                            <img src={Images.User} className="img-fluid" alt="User profile" />
+                            <img src={user && user.image ? user.image : Images.User} className="img-fluid" alt="User profile" />
+                            <button
+                                type="button"
+                                className="btn"
+                                onClick={() => setShow(true)}
+                            >
+                                <Edit2 size={16} />
+                            </button>
                         </div>
                     </div>
 
@@ -134,6 +157,13 @@ const Index = () => {
                     </button>
                 </div>
             </div>
+
+            <FileUpload
+                show={show}
+                loading={isUpload}
+                upload={handleUpload}
+                onHide={() => setShow(false)}
+            />
         </div>
     );
 };

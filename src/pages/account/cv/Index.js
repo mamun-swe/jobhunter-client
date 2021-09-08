@@ -47,7 +47,7 @@ const Index = () => {
 
 
     return (
-        <div className="card border-0 shadow-sm">
+        <div className="card">
             <div className="card-body">
                 {user && user.cv ?
                     <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">

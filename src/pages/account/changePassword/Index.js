@@ -23,7 +23,7 @@ const Index = () => {
     }
 
     return (
-        <div className="card border-0 shadow-sm password-change-card">
+        <div className="card password-change-card">
             <div className="card-header bg-white p-4">
                 <h6 className="mb-0">Change Password</h6>
             </div>

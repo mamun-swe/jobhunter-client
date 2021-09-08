@@ -33,7 +33,7 @@ const Index = () => {
 
     return (
         <div className="apply-list">
-            <div className="card border-0 shadow-sm">
+            <div className="card">
                 <div className="card-header border-0 bg-white p-4">
                     <h5 className="mb-0">Applicant List</h5>
                 </div>

@@ -34,6 +34,14 @@
                         min-height: 100px;
                     }
                 }
+
+                .btn {
+                    position: absolute;
+                    bottom: 0;
+                    padding: 8px;
+                    left: 45%;
+                    border-radius: 50%;
+                }
             }
 
             // Content container

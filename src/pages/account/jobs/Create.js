@@ -45,7 +45,7 @@ const Create = () => {
 
     return (
         <div>
-            <div className="card border-0 shadow-sm">
+            <div className="card">
                 <div className="card-header bg-white p-4">
                     <h5>Open New Job</h5>
                 </div>

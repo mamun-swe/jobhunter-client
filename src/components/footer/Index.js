@@ -26,10 +26,10 @@ const Index = () => {
                                     <h4>Contact Info</h4>
                                     <ul>
                                         <li>
-                                            <p>Address :Your address goes
-                                                here, your demo address.</p>
+                                            <p>Address :Daffodil International University,
+                                                Dattapara,Ashuloya,Dhaka.</p>
                                         </li>
-                                        <li><Link to="/">Phone : +8880 44338899</Link></li>
+                                        <li><Link to="/">Phone : +8809696146284</Link></li>
                                         <li><Link to="/">Email : info@gmail.com</Link></li>
                                     </ul>
                                 </div>

@@ -27,6 +27,19 @@ const ProfileUpdate = async (data, header) => {
     }
 }
 
+// Profile Picture Update
+const ProfilePictureUpload = async (data, header) => {
+    try {
+        const response = await Axios.post(`${api}user/upload-picture`, data, header)
+        if (response.status === 201) {
+            toast.success(response.data.message)
+            return true
+        }
+    } catch (error) {
+        if (error) return errorHandeller(error)
+    }
+}
+
 // Password Update
 const PasswordUpdate = async (data, header) => {
     try {
@@ -38,7 +51,7 @@ const PasswordUpdate = async (data, header) => {
 }
 
 // Applicants in job
-const Applicants = async(id, header) => {
+const Applicants = async (id, header) => {
     try {
         const response = await Axios.get(`${api}user/job/${id}/applicants`, header)
         if (response.status === 200) return response
@@ -48,7 +61,7 @@ const Applicants = async(id, header) => {
 }
 
 // My Applications
-const MyApplications = async(header) => {
+const MyApplications = async (header) => {
     try {
         const response = await Axios.get(`${api}user/my-applications`, header)
         if (response.status === 200) return response
@@ -93,6 +106,7 @@ const Account = {
     Profile,
     ProfileUpdate,
     PasswordUpdate,
+    ProfilePictureUpload,
     Applicants,
     MyApplications,
     JobIndex,

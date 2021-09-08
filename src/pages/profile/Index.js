@@ -42,6 +42,7 @@ const Index = () => {
                                         <div className="image">
                                             <img src={Images.User} className="img-fluid" alt="User profile" />
                                         </div>
+                                    
                                     </div>
 
                                     {/* Content container */}

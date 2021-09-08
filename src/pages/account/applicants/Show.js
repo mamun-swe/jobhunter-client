@@ -64,7 +64,7 @@ const Index = () => {
     return (
         <div>
             {!job ? <p>No job found .</p> :
-                <div className="card border-0 shadow">
+                <div className="card">
                     <div className="card-header p-4 bg-white border-0">
                         <h5 className="mb-0">{job.applicants && job.applicants.length ? job.applicants.length : 0} Applicants in {job.title} Job</h5>
                     </div>
