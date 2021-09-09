@@ -16,6 +16,21 @@ const PasswordChange = (props) => {
                 className="form-contact contact_form"
                 onSubmit={handleSubmit(onSubmit)}
             >
+
+                {/* Old Password */}
+                <div className="form-group mb-4">
+                    {errors.oldPassword && errors.oldPassword.message ?
+                        <small className="text-danger">{errors.oldPassword && errors.oldPassword.message}</small>
+                        : <small>Old password</small>}
+
+                    <input
+                        type="password"
+                        className={errors.oldPassword ? "form-control shadow-none error" : "form-control shadow-none"}
+                        placeholder="*****"
+                        {...register("oldPassword", { required: "Old password is required" })}
+                    />
+                </div>
+
                 {/* New Password */}
                 <div className="form-group mb-4">
                     {errors.newPassword && errors.newPassword.message ?

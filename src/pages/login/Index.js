@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useHistory } from 'react-router-dom'
 import Requests from '../../utils/Requests/Index'
@@ -7,6 +7,11 @@ const Index = () => {
     const history = useHistory()
     const { register, handleSubmit, formState: { errors } } = useForm()
     const [isLoading, setLoading] = useState(false)
+
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if (token) history.push("/home")
+    }, [history])
 
     // Submit form
     const onSubmit = async data => {
@@ -38,10 +43,7 @@ const Index = () => {
                                     <p className="mb-0">Login your account & catch matched jobs.</p>
                                 </div>
                                 <div className="card-body p-4">
-                                    <form
-                                        className="form-contact contact_form"
-                                        onSubmit={handleSubmit(onSubmit)}
-                                    >
+                                    <form className="form-contact contact_form" onSubmit={handleSubmit(onSubmit)}>
 
                                         {/* Email */}
                                         <div className="form-group">
@@ -74,17 +76,14 @@ const Index = () => {
                                                 className="form-control"
                                                 placeholder="Enter password"
                                                 {...register("password", {
-                                                    required: "Password is required",
-                                                    minLength: {
-                                                        value: 8,
-                                                        message: "Minimun length 8 character"
-                                                    }
+                                                    required: "Password is required"
                                                 })}
                                             />
                                         </div>
 
                                         <div className="text-right mb-4">
-                                            <p>Don't have account ? <Link to="/register">Register</Link></p>
+                                            <p className="mb-0">Don't have account ? <Link to="/register">Register</Link></p>
+                                            <p>Forgot password ? <Link to="/reset">Reset</Link></p>
                                         </div>
 
 

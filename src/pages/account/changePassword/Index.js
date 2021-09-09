@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { toast } from 'react-toastify'
 import Requests from '../../../utils/Requests/Index';
 import PasswordChangeForm from '../../../components/form/PasswordChange'
 
@@ -12,10 +11,7 @@ const Index = () => {
     const handleSubmit = async (data) => {
         try {
             setLoading(true)
-            const response = await Requests.Account.PasswordUpdate(data, header)
-            if (response.status === 201) {
-                toast.success(response.data.message)
-            }
+            await Requests.Account.PasswordUpdate(data, header)
             setLoading(false)
         } catch (error) {
             if (error) setLoading(false)

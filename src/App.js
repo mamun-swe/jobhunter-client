@@ -8,6 +8,7 @@ import {
 
 import Login from './pages/login/Index'
 import Register from './pages/register/Index'
+import Reset from './pages/reset/Index'
 import HomeMaster from './pages/master/Index'
 
 import FourOFour from './pages/fourOfour/Index'
@@ -23,6 +24,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Login} />
             <Route exact path="/register" component={Register} />
+            <Route exact path="/reset" component={Reset} />
             <PrivateRoute path="/home/" role="user" component={HomeMaster} />
             <Route path="*" component={FourOFour} />
           </Switch>

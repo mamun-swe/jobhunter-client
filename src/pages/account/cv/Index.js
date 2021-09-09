@@ -3,9 +3,7 @@ import React, {
     useState,
     useCallback
 } from 'react'
-import { Worker } from '@react-pdf-viewer/core'
-import { Viewer } from '@react-pdf-viewer/core'
-import '@react-pdf-viewer/core/lib/styles/index.css'
+import { PDFReader } from 'reactjs-pdf-reader';
 import { toast } from 'react-toastify'
 import Requests from '../../../utils/Requests/Index'
 
@@ -27,7 +25,6 @@ const Index = () => {
         fetchData()
     }, [header, fetchData])
 
-
     // Handle image
     const handleImage = async (event) => {
         const file = event.target.files[0]
@@ -44,16 +41,21 @@ const Index = () => {
         }
     }
 
-
-
     return (
         <div className="card">
-            <div className="card-body">
+            <div className="card-body" style={{overflow: 'hidden'}}>
                 {user && user.cv ?
-                    <Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
-                        <Viewer fileUrl={user.cv} />
-                    </Worker>
-                    : null}
+                    <div style={{
+                        overflow: 'scroll',
+                        height: 600
+                    }}>
+                        <PDFReader url={user.cv} />
+                    </div>
+                    :
+                    <div className="text-center">
+                        <p>Loading ...</p>
+                    </div>
+                }
 
 
                 {/* Image upload Container */}

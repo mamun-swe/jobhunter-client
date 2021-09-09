@@ -35,7 +35,7 @@ const Index = (props) => {
     }
 
     return (
-        <section className="py-5">
+        <section className="pb-5">
             {props.items && props.items.length ?
                 props.items.map((item, i) =>
                     <div className="card border-0 shadow single-job-card mb-30" key={i}>

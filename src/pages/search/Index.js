@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react'
+import { Form } from "react-bootstrap"
 import { useQuery } from '../../components/query/Index'
 
 import Header from '../../components/header/Index'
@@ -10,13 +11,22 @@ import Requests from '../../utils/Requests/Index'
 const Index = () => {
     const { category, location } = useQuery()
     const [jobs, setJobs] = useState([])
+    const [filterJobs, setFilterJobs] = useState(jobs)
+    const [nature, setNature] = useState(null)
     const [isLoading, setLoading] = useState(true)
+    const items = [
+        { label: "Full time", value: "Full time" },
+        { label: "Part-time", value: "Part-time" }
+    ]
 
     // Fetch data
     const fetchData = useCallback(async () => {
         try {
             const response = await Requests.Website.Search(category, location)
-            if (response) setJobs(response.jobs)
+            if (response) {
+                setJobs(response.jobs)
+                setFilterJobs(response.jobs)
+            }
             setLoading(false)
         } catch (error) {
             if (error) setLoading(false)
@@ -27,6 +37,15 @@ const Index = () => {
         fetchData()
     }, [fetchData])
 
+    // Job nature filter
+    const handleNatureFilter = async (value) => {
+        if (jobs && jobs.length) {
+            const results = await jobs.filter(x => x.jobType === value)
+            setFilterJobs(results)
+        }
+        setNature(value)
+    }
+
     if (isLoading) return <Preloader />
 
     return (
@@ -34,9 +53,38 @@ const Index = () => {
             <Header />
             <main>
                 <div className="container">
-                    <div className="row justify-content-center">
-                        <div className="col-lg-8 pt-2">
-                            <Timeline items={jobs} />
+                    <div className="row pt-4">
+
+                        {/* Filter column */}
+                        <div className="col-lg-4 mb-4 mb-lg-0">
+                            <div className="card border-0 shadow">
+                                <div className="card-body">
+
+                                    {/* Job type filter */}
+                                    <h6 className="font-weight-bold mb-2">Filter by job type.</h6>
+                                    {items.map((item, i) => (
+                                        <div key={i} className="font-sm mb-2">
+                                            <Form.Check
+                                                id={i}
+                                                type='checkbox'
+                                                value={item.value}
+                                                label={item.label}
+                                                checked={nature === item.value}
+                                                onChange={() => handleNatureFilter(item.value)}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Timeline container */}
+                        <div className="col-lg-8">
+                            {filterJobs && filterJobs.length ?
+                                <Timeline items={filterJobs} refetch={fetchData} />
+                                :
+                                <h5 className="font-weight-bold text-center">No {nature} job available.</h5>
+                            }
                         </div>
                     </div>
                 </div>

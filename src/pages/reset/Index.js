@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useHistory } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import Requests from '../../utils/Requests/Index'
 
-toast.configure({ autoClose: 7000 })
 const Index = () => {
     const history = useHistory()
     const { register, handleSubmit, formState: { errors } } = useForm()
@@ -18,14 +15,9 @@ const Index = () => {
 
     // Submit form
     const onSubmit = async data => {
-        try {
-            setLoading(true)
-            const response = await Requests.Auth.Register(data)
-            if (response) toast.success((response.message))
-            setLoading(false)
-        } catch (error) {
-            if (error) setLoading(false)
-        }
+        setLoading(true)
+        await Requests.Auth.Reset(data)
+        setLoading(false)
     }
 
     return (
@@ -36,27 +28,11 @@ const Index = () => {
                         <div className="col-12">
                             <div className="card shadow border-0">
                                 <div className="card-header text-center bg-white">
-                                    <h2 className="mb-0">Register</h2>
-                                    <p className="mb-0">Create an account & catch matched jobs.</p>
+                                    <h2 className="mb-0">Reset Password</h2>
+                                    <p className="mb-0">Just enter e-mail, new password will sent.</p>
                                 </div>
                                 <div className="card-body p-4">
                                     <form className="form-contact contact_form" onSubmit={handleSubmit(onSubmit)}>
-
-                                        {/* Name */}
-                                        <div className="form-group">
-                                            {errors.name && errors.name.message ? (
-                                                <label className="text-danger">{errors.name && errors.name.message}</label>
-                                            ) : <label>Name</label>}
-
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Your name"
-                                                {...register("name", {
-                                                    required: "Name is required"
-                                                })}
-                                            />
-                                        </div>
 
                                         {/* Email */}
                                         <div className="form-group">
@@ -78,28 +54,8 @@ const Index = () => {
                                             />
                                         </div>
 
-                                        {/* Password */}
-                                        <div className="form-group mb-0">
-                                            {errors.password && errors.password.message ? (
-                                                <label className="text-danger">{errors.password && errors.password.message}</label>
-                                            ) : <label>Password</label>}
-
-                                            <input
-                                                type="password"
-                                                className="form-control"
-                                                placeholder="Enter password"
-                                                {...register("password", {
-                                                    required: "Password is required",
-                                                    minLength: {
-                                                        value: 8,
-                                                        message: "Minimun length 8 character"
-                                                    }
-                                                })}
-                                            />
-                                        </div>
-
                                         <div className="text-right mb-4">
-                                            <p>Already have an account ? <Link to="/">Login</Link></p>
+                                            <p>Back to <Link to="/">Login</Link></p>
                                         </div>
 
                                         <div className="form-group text-right mt-3">
@@ -107,7 +63,7 @@ const Index = () => {
                                                 type="submit"
                                                 className="button button-contactForm boxed-btn"
                                                 disabled={isLoading}
-                                            >{isLoading ? 'Loading ...' : 'Submit'}</button>
+                                            >{isLoading ? 'Loading ...' : 'Reset'}</button>
                                         </div>
                                     </form>
                                 </div>

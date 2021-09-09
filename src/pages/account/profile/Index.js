@@ -23,7 +23,6 @@ const Index = () => {
     // Fetch data
     const fetchData = useCallback(async () => {
         const response = await Requests.Account.Profile(header)
-        console.log(response.user)
         if (response) {
             setUser(response.user)
             setOpenedJob(response.openedJob)
@@ -104,8 +103,25 @@ const Index = () => {
                                 </div>
                             </div>
 
-                            {/* E-mail */}
+                            {/* Phone */}
                             <div className="col-12 col-lg-6">
+                                <div className="form-group">
+                                    {errors.phone && errors.phone.message ? (
+                                        <label className="text-danger">{errors.phone && errors.phone.message}</label>
+                                    ) : <label>Phone</label>}
+
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="01XXXXXXXXX"
+                                        defaultValue={user ? user.phone : null}
+                                        {...register("phone")}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* E-mail */}
+                            <div className="col-12">
                                 <div className="form-group">
                                     {errors.email && errors.email.message ? (
                                         <label className="text-danger">{errors.email && errors.email.message}</label>
@@ -121,6 +137,39 @@ const Index = () => {
                                 </div>
                             </div>
 
+                            {/* Present Address */}
+                            <div className="col-12">
+                                <div className="form-group">
+                                    {errors.presentAddress && errors.presentAddress.message ? (
+                                        <label className="text-danger">{errors.presentAddress && errors.presentAddress.message}</label>
+                                    ) : <label>Present Address</label>}
+
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Enter present address"
+                                        defaultValue={user ? user.presentAddress : null}
+                                        {...register("presentAddress")}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Permanent Address */}
+                            <div className="col-12">
+                                <div className="form-group">
+                                    {errors.permanentAddress && errors.permanentAddress.message ? (
+                                        <label className="text-danger">{errors.permanentAddress && errors.permanentAddress.message}</label>
+                                    ) : <label>Permanent Address</label>}
+
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Enter permanent address"
+                                        defaultValue={user ? user.permanentAddress : null}
+                                        {...register("permanentAddress")}
+                                    />
+                                </div>
+                            </div>
 
                             {/* Website address */}
                             <div className="col-12">

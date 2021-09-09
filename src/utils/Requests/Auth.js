@@ -29,9 +29,23 @@ const Register = async (data) => {
     }
 }
 
+// Reset
+const Reset = async (data) => {
+    try {
+        const response = await Axios.post(`${api}auth/reset`, data)
+        if (response.status === 201) {
+            toast.success(response.data.message)
+            return true
+        }
+    } catch (error) {
+        if (error) return errorHandeller(error)
+    }
+}
+
 const Auth = {
     Login,
-    Register
+    Register,
+    Reset
 }
 
 export default Auth

@@ -87,6 +87,7 @@ const Index = () => {
                                             <p>Website : {item.createdBy.website}</p>
                                             <p>Position : {item.title}</p>
                                             <p>Location : {item.location}, {item.area}</p>
+                                            <p className="text-success">Application Status : {item.status}</p>
                                         </td>
                                     </tr>
                                 ) : null}

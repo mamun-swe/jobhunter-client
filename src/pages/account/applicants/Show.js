@@ -11,6 +11,7 @@ import ChatLauncher from '../../../components/chat/Index'
 const Index = () => {
     const { id } = useParams()
     const [job, setJob] = useState(null)
+    const [isUpdate, setUpdate] = useState(false)
     const [isLoading, setLoading] = useState(true)
 
     const [author, setAuthor] = useState(null)
@@ -25,9 +26,7 @@ const Index = () => {
         try {
             setLoading(true)
             const response = await Requests.Account.Applicants(id, header)
-            if (response) {
-                setJob(response.data.job)
-            }
+            if (response) setJob(response.data.job)
             setLoading(false)
         } catch (error) {
             if (error) setLoading(false)
@@ -58,6 +57,18 @@ const Index = () => {
         setReciver(null)
     }
 
+    // Change Applicant status
+    const changeApplicantStatus = async (status, applicantId) => {
+        const formData = {
+            status,
+            jobId: id,
+            applicantId
+        }
+        setUpdate(true)
+        await Requests.Account.UpdateApplicantStatus(formData, header)
+        fetchData()
+        setUpdate(false)
+    }
 
     if (isLoading) return <Preloader />
 
@@ -75,20 +86,39 @@ const Index = () => {
                                 <div className="pr-3"><h6>{i + 1}.</h6></div>
                                 <div className="flex-fill">
                                     <div className="d-flex">
-                                        <div><h6 className="text-capitalize mb-3">{items.name}</h6></div>
+                                        <div>
+                                            <h6 className="text-capitalize mb-0">{items.applicant.name}</h6>
+                                            <p style={{ fontSize: 13 }} className="text-success mb-4">Application Status - {items.status}</p>
+                                        </div>
                                         <div className="ml-auto">
-                                            <Icon
-                                                icon={messageCircle}
-                                                style={{ color: '#F4A261' }}
-                                                size={25}
-                                                onClick={() => handleOpen(items)}
-                                            />
+                                            <button className="btn px-4 py-2" onClick={() => handleOpen(items)}>
+                                                <Icon icon={messageCircle} style={{ color: '#fff' }} size={20} />Chat
+                                            </button>
+                                            <br />
+
+                                            {items.status === "Pending" ?
+                                                <button
+                                                    className="btn px-3 py-3 mt-2"
+                                                    disabled={isUpdate}
+                                                    onClick={() => changeApplicantStatus("Approved", items.applicant._id)}
+                                                >{isUpdate ? "Loading ..." : "Approve"}</button>
+                                                : items.status === "Approved" ?
+                                                    <button
+                                                        className="btn px-3 py-3 mt-2"
+                                                        disabled={isUpdate}
+                                                        onClick={() => changeApplicantStatus("Canceled", items.applicant._id)}
+                                                    >{isUpdate ? "Loading ..." : "Cancel"}</button>
+                                                    : null}
                                         </div>
                                     </div>
-                                    <p className="mb-0">E-mail: {items.email}</p>
-                                    <p className="mb-0">Website: {items.website}</p>
-                                    <p className="mb-0"><b>Description : </b></p>
-                                    <p>{items.description}</p>
+                                    <p style={{ fontSize: 13 }} className="mb-0">Name: {items.applicant.name}</p>
+                                    <p style={{ fontSize: 13 }} className="mb-0">Phone: {items.applicant.phone}</p>
+                                    <p style={{ fontSize: 13 }} className="mb-0">E-mail: {items.applicant.email}</p>
+                                    <p style={{ fontSize: 13 }} className="mb-0">Website: {items.applicant.website}</p>
+                                    <p style={{ fontSize: 13 }} className="mb-0">Present Address: {items.applicant.presentAddress}</p>
+                                    <p style={{ fontSize: 13 }} className="mb-0">Permanent Address: {items.applicant.permanentAddress}</p>
+                                    <p style={{ fontSize: 13 }} className="mb-0"><b>Description : </b></p>
+                                    <p style={{ fontSize: 13 }} >{items.applicant.description}</p>
                                 </div>
                             </div>
                         )}
