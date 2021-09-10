@@ -76,7 +76,6 @@ const UpdateApplicantStatus = async (data, header) => {
     }
 }
 
-
 // My Applications
 const MyApplications = async (header) => {
     try {
@@ -119,6 +118,19 @@ const UploadCv = async (data, header) => {
     }
 }
 
+// Rating
+const Rating = async (data, header) => {
+    try {
+        const response = await Axios.post(`${api}user/rating`, data, header)
+        if (response.status === 201) {
+            toast.success(response.data.message)
+            return true
+        }
+    } catch (error) {
+        if (error) return errorHandeller(error)
+    }
+}
+
 const Account = {
     Profile,
     ProfileUpdate,
@@ -129,7 +141,8 @@ const Account = {
     MyApplications,
     JobIndex,
     CreateJob,
-    UploadCv
+    UploadCv,
+    Rating
 }
 
 export default Account

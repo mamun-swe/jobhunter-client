@@ -7,6 +7,7 @@ let socket
 
 const Index = (props) => {
     const ENDPOINT = 'https://ja.pranjolerp.com'
+    // const ENDPOINT = 'http://localhost:4000'
     const [messageList, setMessageList] = useState([])
     const [header] = useState({
         headers: { Authorization: "Bearer " + localStorage.getItem('token') }
@@ -16,7 +17,7 @@ const Index = (props) => {
     const fetchData = useCallback(async () => {
         try {
             const response = await Requests.Chat.MyMessages(props.author, props.reciver._id, header)
-            if(response.data && response.data.messages && response.data.messages.length){
+            if (response.data && response.data.messages && response.data.messages.length) {
                 setMessageList(response.data.messages)
             }
         } catch (error) {

@@ -21,7 +21,6 @@ const Index = () => {
     // Fetch data
     const fetchData = useCallback(async () => {
         try {
-            setLoading(true)
             const response = await Requests.Website.Jobs()
             if (response) {
                 setJobs(response.jobs)

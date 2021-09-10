@@ -47,7 +47,7 @@ const Index = () => {
 
     // Handle message box open
     const handleOpen = data => {
-        setReciver(data)
+        setReciver(data.applicant)
         setOpen(true)
     }
 
@@ -91,19 +91,21 @@ const Index = () => {
                                             <p style={{ fontSize: 13 }} className="text-success mb-4">Application Status - {items.status}</p>
                                         </div>
                                         <div className="ml-auto">
-                                            <button className="btn px-4 py-2" onClick={() => handleOpen(items)}>
+                                            <button style={{ zIndex: 0 }} className="btn px-4 py-2" onClick={() => handleOpen(items)}>
                                                 <Icon icon={messageCircle} style={{ color: '#fff' }} size={20} />Chat
                                             </button>
                                             <br />
 
                                             {items.status === "Pending" ?
                                                 <button
+                                                    style={{ zIndex: 0 }}
                                                     className="btn px-3 py-3 mt-2"
                                                     disabled={isUpdate}
                                                     onClick={() => changeApplicantStatus("Approved", items.applicant._id)}
                                                 >{isUpdate ? "Loading ..." : "Approve"}</button>
                                                 : items.status === "Approved" ?
                                                     <button
+                                                        style={{ zIndex: 0 }}
                                                         className="btn px-3 py-3 mt-2"
                                                         disabled={isUpdate}
                                                         onClick={() => changeApplicantStatus("Canceled", items.applicant._id)}

@@ -1,5 +1,5 @@
 /* 1. Theme default css */
-@import url('https://fonts.googleapis.com/css?family=Barlow:300,400,500,600,700,900|Muli:300,400,500,600,700,800,900&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Barlow:300,400,500,600,700,900|Muli:300,400,500,600,700,800,900&display=swap");
 
 body {
     font-family: $font_2;
@@ -15,7 +15,6 @@ h5,
 h6 {
     font-family: $font_1;
     color: #0b1c39;
-
     margin-top: 0px;
     font-style: normal;
     font-weight: 500;
@@ -25,42 +24,28 @@ h6 {
 p {
     font-family: $font_2;
     color: $font_color1;
-
     font-size: 16px;
     line-height: 30px;
     margin-bottom: 15px;
     font-weight: normal;
 }
 
-// background-image
-.bg-img-1 {
-    // background-image: url(../img/slider/slider-img-1.jpg);
-}
-
-.bg-img-2 {
-    // background-image: url(../img/background-img/bg-img-2.jpg);
-}
-
-.cta-bg-1 {
-    // background-image: url(../img/background-img/bg-img-3.jpg);
-
-}
-
 .img {
     max-width: 100%;
-    @include transition(.3s);
+
+    @include transition(0.3s);
 }
 
 .f-left {
-    float: left
+    float: left;
 }
 
 .f-right {
-    float: right
+    float: right;
 }
 
 .fix {
-    overflow: hidden
+    overflow: hidden;
 }
 
 .clear {
@@ -69,7 +54,7 @@ p {
 
 a,
 .button {
-    @include transition(.3s);
+    @include transition(0.3s);
 }
 
 a:focus,
@@ -104,7 +89,7 @@ input:focus,
 input:focus,
 textarea,
 textarea:focus {
-    outline: 0
+    outline: 0;
 }
 
 .uppercase {
@@ -137,7 +122,7 @@ ul {
 }
 
 li {
-    list-style: none
+    list-style: none;
 }
 
 hr {
@@ -149,7 +134,7 @@ hr {
 
 /* Theme-overlay */
 .theme-overlay {
-    position: relative
+    position: relative;
 }
 
 .theme-overlay::before {
@@ -176,6 +161,7 @@ hr {
     width: 100%;
     height: 100%;
     z-index: -1;
+
     @extend %overlay;
 }
 
@@ -203,7 +189,7 @@ hr {
 }
 
 .separator {
-    border-top: 1px solid #f2f2f2
+    border-top: 1px solid #f2f2f2;
 }
 
 .mb-90 {
@@ -225,7 +211,6 @@ hr {
         height: 40px;
         left: 20px;
         line-height: 40px;
-
         font-size: 22px;
         color: #646464;
         opacity: 1;
@@ -278,7 +263,6 @@ hr {
 
 .btn {
     background: $btn_bg;
-    -moz-user-select: none;
     text-transform: capitalize;
     color: #fff;
     cursor: pointer;
@@ -313,7 +297,8 @@ hr {
         transition-timing-function: ease;
         transform-origin: 0 0;
         transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
-        // 
+
+        //
         transform: scaleX(0);
         border-radius: 0;
     }
@@ -325,6 +310,19 @@ hr {
     z-index: -1;
 }
 
+.btn__muted {
+    color: #555;
+    font-size: 14px;
+    padding: 8px 20px;
+    border: 0;
+    background: #dfdfdf;
+    border-radius: 4px;
+    font-weight: 700;
+
+    &:hover {
+        background: #d6d6d6;
+    }
+}
 
 .head-btn2 {
     background: none;
@@ -350,16 +348,13 @@ hr {
     @media #{$lg} {
         padding: 27px 27px;
     }
-
 }
 
-// 
+//
 .border-btn4 {
     border: 1px solid #fff;
     color: #fff;
 }
-
-
 
 // ot
 .btn.focus,
@@ -370,13 +365,11 @@ hr {
 
 // Custom Btn
 
-
 .border-btn {
     border: 1px solid $theme-color;
     color: $theme-color;
     font: $font_1;
     background: none;
-    -moz-user-select: none;
     padding: 27px 44px;
     margin: 0px;
     text-transform: capitalize;
@@ -407,7 +400,8 @@ hr {
         transition-timing-function: ease;
         transform-origin: 0 0;
         transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
-        // 
+
+        //
         transform: scaleY(0);
         border-radius: 0;
     }
@@ -429,7 +423,6 @@ hr {
     color: #8b92dd;
     font: $font_1;
     background: none;
-    -moz-user-select: none;
     padding: 19px 69px;
     margin: 0px;
     text-transform: uppercase;
@@ -464,7 +457,8 @@ hr {
         transition-timing-function: ease;
         transform-origin: 0 0;
         transition-timing-function: cubic-bezier(0.5, 1.6, 0.4, 0.7);
-        // 
+
+        //
         transform: scaleY(0);
         border-radius: 0px;
     }
@@ -475,11 +469,8 @@ hr {
     order: 2px solid transparent;
 }
 
-
-
-
 /* button style */
-.breadcrumb>.active {
+.breadcrumb > .active {
     color: #888;
 }
 
@@ -525,11 +516,6 @@ hr {
 
 /* Sticky end */
 
-
-
-
-
-
 /*--- Margin & Padding --*/
 
 /*-- Margin Top --*/
@@ -542,7 +528,7 @@ hr {
 /*-- Margin Bottom --*/
 @for $i from 1 through 40 {
     .mb-#{5 * $i} {
-        margin-bottom: 5px *$i;
+        margin-bottom: 5px * $i;
     }
 }
 
@@ -556,14 +542,14 @@ hr {
 /*-- Margin Right --*/
 @for $i from 1 through 40 {
     .mr-#{5 * $i} {
-        margin-right: 5px *$i;
+        margin-right: 5px * $i;
     }
 }
 
 /*-- Padding Top --*/
 @for $i from 1 through 40 {
     .pt-#{5 * $i} {
-        padding-top: 5px *$i;
+        padding-top: 5px * $i;
     }
 }
 
@@ -574,28 +560,25 @@ hr {
 /*-- Padding Bottom --*/
 @for $i from 1 through 40 {
     .pb-#{5 * $i} {
-        padding-bottom: 5px *$i;
+        padding-bottom: 5px * $i;
     }
 }
 
 /*-- Padding Left --*/
 @for $i from 1 through 40 {
     .pl-#{5 * $i} {
-        padding-left: 5px *$i;
+        padding-left: 5px * $i;
     }
 }
 
 /*-- Padding Right --*/
 @for $i from 1 through 40 {
     .pr-#{5 * $i} {
-        padding-right: 5px *$i;
+        padding-right: 5px * $i;
     }
 }
 
-
 // others common css here :)
-
-
 
 /*-- Some Animated CSS -- */
 
@@ -604,48 +587,22 @@ hr {
     animation-name: float-bob;
     animation-duration: 2s;
     animation-iteration-count: infinite;
+
     /* animation-timing-function: linear; */
     -moz-animation-name: float-bob;
     -moz-animation-duration: 2s;
     -moz-animation-iteration-count: infinite;
-    -moz-animation-timing-function: linear;
     -ms-animation-name: float-bob;
     -ms-animation-duration: 2s;
     -ms-animation-iteration-count: infinite;
-    -ms-animation-timing-function: linear;
     -o-animation-name: float-bob;
     -o-animation-duration: 2s;
     -o-animation-iteration-count: infinite;
-    -o-animation-timing-function: linear;
-}
-
-@-webkit-keyframes float-bob {
-    0% {
-        -webkit-transform: translateY(-20px);
-        transform: translateY(-20px);
-    }
-
-    50% {
-        -webkit-transform: translateY(-10px);
-        transform: translateY(-10px);
-    }
-
-    100% {
-        -webkit-transform: translateY(-20px);
-        transform: translateY(-20px);
-    }
 }
 
 /* heartbeat */
 .heartbeat {
     animation: heartbeat 1s infinite alternate;
-}
-
-@-webkit-keyframes heartbeat {
-    to {
-        -webkit-transform: scale(1.03);
-        transform: scale(1.03);
-    }
 }
 
 /* rotateme */
@@ -789,7 +746,6 @@ hr {
     }
 }
 
-
 /*-- Section Padding -- */
 
 .section-padding2 {
@@ -883,7 +839,6 @@ hr {
     }
 }
 
-
 .feature-padding {
     padding-top: 195px;
     padding-bottom: 130px;
@@ -969,7 +924,6 @@ hr {
     }
 }
 
-
 .testimonial-padding {
     padding-top: 190px;
     padding-bottom: 220px;
@@ -1020,7 +974,6 @@ hr {
     }
 }
 
-
 .footer-padding {
     padding-top: 170px;
     padding-bottom: 20px;
@@ -1050,8 +1003,6 @@ hr {
         padding-bottom: 0px;
     }
 }
-
-
 
 // section Tittle
 .section-tittle {
@@ -1124,10 +1075,8 @@ hr {
         @media #{$xs} {
             font-size: 29px;
         }
-
     }
 }
-
 
 // Section Overly
 
@@ -1139,7 +1088,7 @@ hr {
     &::before {
         position: absolute;
         content: "";
-        background-color: rgba(31, 43, 123, .8);
+        background-color: rgba(31, 43, 123, 0.8);
         width: 100%;
         height: 100%;
         left: 0;

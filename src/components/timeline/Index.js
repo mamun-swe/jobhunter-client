@@ -2,10 +2,13 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import HtmlParser from 'react-html-parser'
 import { toast } from 'react-toastify'
+import { RatingView } from '../rating/Index'
+import { RatingModal } from '../modal/Rating/Index'
 import { formatDateWithAMPM, StringShort } from '../../utils/_helpers'
 import Requests from '../../utils/Requests/Index'
 
 const Index = (props) => {
+    const [rating, setRating] = useState({ show: false, loading: false, value: null })
     const [isLoading, setLoading] = useState({ jobId: null, loading: false })
     const [comment, setComment] = useState({ jobId: null, value: null })
     const [header] = useState({
@@ -67,6 +70,9 @@ const Index = (props) => {
                             <small>Posted on: {formatDateWithAMPM(item.createdAt)}</small>
                             <br />
                             <small>Expired at: {formatDateWithAMPM(item.expiredAt)}</small>
+                            <br />
+
+                            <RatingView items={item.ratings} />
                         </div>
 
                         <div className="card-footer p-4">
@@ -94,7 +100,18 @@ const Index = (props) => {
 
                             {/* Comments section */}
                             <div className="comments-section mt-3">
-                                <small className="text-muted">Comments {item.comments && item.comments.length ? item.comments.length : 0}</small>
+                                <div className="d-flex mb-3">
+                                    <div>
+                                        <small className="text-muted">{item.comments && item.comments.length ? item.comments.length : 0} People comments.</small>
+                                    </div>
+                                    <div className="ml-auto">
+                                        <button className="btn__muted mb-2" onClick={() => setRating({
+                                            show: true,
+                                            loading: false,
+                                            value: item._id
+                                        })}>Give your rating</button>
+                                    </div>
+                                </div>
 
                                 {item.comments && item.comments.length ?
                                     item.comments.map((data, j) =>
@@ -118,6 +135,15 @@ const Index = (props) => {
                         </div>
                     </div>
                 ) : null}
+
+            {rating.show &&
+                <RatingModal
+                    show={rating.show}
+                    postId={rating.value}
+                    refetch={props.refetch}
+                    onHide={() => setRating({ show: false, loading: false, value: null })}
+                />
+            }
         </section>
     )
 }
