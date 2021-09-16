@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import HtmlParser from 'react-html-parser'
 import { toast } from 'react-toastify'
 import { RatingView } from '../rating/Index'
@@ -8,6 +8,7 @@ import { formatDateWithAMPM, StringShort } from '../../utils/_helpers'
 import Requests from '../../utils/Requests/Index'
 
 const Index = (props) => {
+    const history = useHistory()
     const [rating, setRating] = useState({ show: false, loading: false, value: null })
     const [isLoading, setLoading] = useState({ jobId: null, loading: false })
     const [comment, setComment] = useState({ jobId: null, value: null })
@@ -45,7 +46,10 @@ const Index = (props) => {
 
                         <div className="card-header p-4">
                             <div className="d-flex">
-                                <div className="name-circle shadow-sm rounded-circle flex-center flex-column text-center">
+                                <div className="name-circle shadow-sm rounded-circle flex-center flex-column text-center"
+                                    style={{ cursor: "pointer" }}
+                                    onClick={() => history.push(`/home/profile/${item.createdBy._id}`)}
+                                >
                                     <h5 className="text-uppercase mb-0">{StringShort(item.createdBy.name)}</h5>
                                 </div>
                                 <div className="pl-3">

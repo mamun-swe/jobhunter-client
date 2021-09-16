@@ -64,7 +64,7 @@ const Index = (props) => {
     }
 
     return (
-        <div>
+        <div style={{ background: "red", zIndex: 99999999 }}>
             <Launcher
                 agentProfile={{
                     teamName: props.reciver ? props.reciver.name : "Unknown",

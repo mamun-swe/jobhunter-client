@@ -40,9 +40,14 @@ const Index = () => {
                                     {/* Image container */}
                                     <div className="image-container flex-center flex-column mb-4">
                                         <div className="image">
-                                            <img src={Images.User} className="img-fluid" alt="User profile" />
+                                            <img
+                                                src={user.image || Images.User}
+                                                className="img-fluid"
+                                                alt="User profile"
+                                                style={{ maxHeight: 240 }}
+                                            />
                                         </div>
-                                    
+
                                     </div>
 
                                     {/* Content container */}
