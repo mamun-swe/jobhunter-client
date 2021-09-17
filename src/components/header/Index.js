@@ -38,9 +38,7 @@ const Index = () => {
                                                 <li><Link to="/home/about">About</Link></li>
                                                 <li><Link to="/home/contact">Contact</Link></li>
                                                 {role ? <li><Link to={`/home/account`}>Profile</Link></li> : null}
-                                                <li>
-                                                    <Link to="#" onClick={doLogout}>Logout</Link>
-                                                </li>
+                                                <li><Link to="#" onClick={doLogout}>Logout</Link></li>
                                             </ul>
                                         </nav>
                                     </div>

@@ -10,6 +10,7 @@ import Profile from '../profile/Index'
 
 import AccountMaster from '../account/Master'
 import RoleBasedRoute from '../../components/privateRoute/Index'
+import { MessageNotification } from '../../components/messageNotification/MessageNotification'
 
 const Index = () => {
     return (
@@ -23,6 +24,7 @@ const Index = () => {
                 <Route exact path="/home/profile/:id" component={Profile} />
                 <RoleBasedRoute path="/home/account/" component={AccountMaster} role={'user'} />
             </Switch>
+            <MessageNotification/>
         </div>
     )
 }
