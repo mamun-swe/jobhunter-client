@@ -4,6 +4,14 @@ export const categories = [
         value: "IT Executive"
     },
     {
+        label: "Mechanics",
+        value: "Mechanics"
+    },
+    {
+        label: "Electronics",
+        value: "Electronics"
+    },
+    {
         label: "Software Development",
         value: "Software Development"
     },
