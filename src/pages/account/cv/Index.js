@@ -19,6 +19,9 @@ const Index = () => {
     const fetchData = useCallback(async () => {
         const response = await Requests.Account.Profile(header)
         if (response) setUser(response.user)
+        if (response) {
+            console.log(response)
+        }
     }, [header])
 
     useEffect(() => {
@@ -43,13 +46,22 @@ const Index = () => {
 
     return (
         <div className="card">
-            <div className="card-body" style={{overflow: 'hidden'}}>
+            <div className="card-body" style={{ overflow: 'hidden' }}>
                 {user && user.cv ?
                     <div style={{
                         overflow: 'scroll',
+                        maxWidth: 800,
                         height: 600
                     }}>
                         <PDFReader url={user.cv} />
+                        {/* <div style={{ height: 60 }}>
+                            <a
+                                target="_blank"
+                                rel="noreferrer"
+                                href={`${user.cv}`}>
+                                <p>Open a PDF file </p>
+                            </a>
+                        </div> */}
                     </div>
                     :
                     <div className="text-center">
